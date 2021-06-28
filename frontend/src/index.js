@@ -4,6 +4,7 @@ import App from './App';
 import store from "./Store/store";
 import {ThemeProvider} from "styled-components";
 import {defaultTheme, GlobalStyle} from "./Styles";
+import {Provider} from "react-redux";
 
 
 ReactDOM.render(
