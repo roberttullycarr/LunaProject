@@ -12,3 +12,4 @@ dependencies:
       - gunicorn==20.1
       - flake8==3.9.2
       - django-cors-headers==3.7.0
+      - django-countries==7.2.1
