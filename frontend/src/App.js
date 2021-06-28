@@ -1,4 +1,4 @@
-import {Route, Router, Switch} from "react-router";
+import {Redirect, Route, Router, Switch} from "react-router";
 import SignIn from "./Pages/Authentification/Sign In";
 import SignUp from "./Pages/Authentification/Sign Up";
 import Congratulations from "./Pages/Authentification/Congratulations";
