@@ -14,20 +14,22 @@ export const GlobalStyle = createGlobalStyle`
 
 export const defaultTheme = {
   // Colors:
-  purple: "#A580FF",
+  orange: "#E47D31",
+  backgroundLightGrey: "#F2F2F2",
   backgroundWhite: "#FFFFFF",
-  black: "#000000",
-  black05: "rgba(0, 0, 0, 0.05)",
-  black10: "rgba(0, 0, 0, 0.1)",
-  black20: "rgba(0, 0, 0, 0.2)",
-  black50: "rgba(0, 0, 0, 0.5)",
-  black60: "rgba(0, 0, 0, 0.6)",
-  white20: "rgba(250, 250, 250, 0.2)",
-  postsBackground: "#f2f2f2",
+  TextTitleDarkGrey: "#4C4C4C",
+  TextTabDarkGrey: "#4A4A4A",
+  TextGrey: "#979797",
+  TextFooterGrey: "#646363",
+  TextProfileBlack: "#303030",
+  TextBlack: "#000000",
+  TextWhite: "#FFFFFF",
+  TextRating: "#7E7E7E",
+  separatorGrey: "#EBEBEB",
 
   // LINEAR GRADIENT
   // linearGradientGradBackground: "linear-gradient(102deg, #c468ff, #6e91f6)",
-  linearGradientGradButton: "linear-gradient(132.96deg, #C468FF 3.32%, #6E91F6 100%)",
+  // linearGradientGradButton: "linear-gradient(132.96deg, #C468FF 3.32%, #6E91F6 100%)",
 
   // Box Shadows:
   boxShadowButton: "box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.07)",
@@ -49,18 +51,19 @@ export const defaultTheme = {
   // Text Size
   // textSizeXXL: "40px",
   // textSizeXL: "30px",
-  textSizeL: "40px",
-  textSizeM: "30px",
-  textSizeUserName: "24px",
-  textSizeTitle: "22px",
+  textSizeL: "30px",
+  textSizeM: "20px",
+  // textSizeTab: "20px",
+  textSizeSecondTitle: "24px",
+  textSizePostName: "18px",
   textSizeDefault: "16px",
   textSizeS: "14px",
   textSizeXS: "12px",
-  textSizeXXS: "10px",
+  // textSizeXXS: "10px",
 
   // Text Weight
-  // textWeightThin: "300",
+  textWeightThin: "300",
   textWeightRegular: "400",
   textWeightMedium: "500",
-  // textWeightBold: "700",
+  textWeightBold: "700",
 };
