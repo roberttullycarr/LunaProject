@@ -13,7 +13,7 @@ function App() {
                 <Route exact path="/">
                     <Redirect to="/signin" />
                 </Route>
-                <Route exact path="/signin" component={SignIn} /> */}
+                <Route exact path="/signin" component={SignIn} />
                 <Route exact path="/signup" component={SignUp} />
                 <Route exact path="/signup/success" component={Congratulations} />
                 <Route exact path="/signup/verification" component={Verification} />
