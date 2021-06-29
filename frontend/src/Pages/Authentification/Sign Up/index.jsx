@@ -1,34 +1,28 @@
 import styled from "styled-components";
-import {BaseInput} from "../../../Components/Generic/Fields";
-import {BaseButton} from "../../../Components/Generic/Buttons";
-import {useHistory} from "react-router-dom";
+import { BaseInput } from "../../../Components/Generic/Fields/index.js";
+import { BaseButton } from "../../../Components/Generic/Buttons";
+import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import Axios from "../../../Store/Axios";
-
-const Wrapper = styled.form`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    height: 100vh;
-    width: 100%;
-    background-color: ${props => props.theme.backgroundLightGrey};
-`
+import { Wrapper } from "../../../Components/Generic/RegistrationWrapper";
+import MenuBar from "../../../Components/Menu Bar";
+import Footer from "../../../Components/Footer";
 
 const Title = styled.h1`
     color: ${props => props.theme.textDarkGrey};
     font-size: ${props => props.theme.textSizeSecondTitle};
     margin-top: 3%;
     margin-bottom: 4%;
-`
+    padding-bottom: 15px;
+    border-bottom: solid 3px ${props => props.theme.orange};
+`;
 
-const RegistrationInput = styled(BaseInput)`
-    width: 20%;
+export const RegistrationInput = styled(BaseInput)`
     min-width: 200px;
+    width: 20%;
     font-size: ${props => props.theme.textSizeM};
     padding: 23px;
-    margin-bottom: 5%;
-`
+`;
 
 const SignUp = () => {
     const history = useHistory();
@@ -60,11 +54,15 @@ const SignUp = () => {
     }
 
     return (
-        <Wrapper onSubmit={onSubmitHandler} >
-            <Title>REGISTRATION</Title>
-            <RegistrationInput name="E-Mail address" onChange={OnEmailChange} />
-            <BaseButton action="Register" ></BaseButton>
-        </Wrapper>
+        <>
+            <MenuBar />
+            <Wrapper onSubmit={onSubmitHandler} >
+                <Title>REGISTRATION</Title>
+                <RegistrationInput name="E-Mail address" onChange={OnEmailChange} placeholder="E-Mail address" />
+                <BaseButton action="Register" ></BaseButton>
+            </Wrapper>
+            <Footer />
+        </>
     )
 }
 
