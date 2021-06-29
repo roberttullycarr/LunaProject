@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "https://luna-capricorn.propulsion-home.ch/backend/api/";
+const baseURL = "https://0:8000/backend/api/";
 
 const Axios = axios.create({
   baseURL: baseURL,
