@@ -1,18 +1,22 @@
 import random
-from django.contrib.auth import get_user_model
+
 from django.db import models
 
-User = get_user_model()
 
-
-def code_generator():
+# snippet to generate random code
+def code_generator(length=5):
     numbers = '0123456789'
-    return ''.join(random.choice(numbers) for x in range(5))
+    return ''.join(random.choice(numbers) for _ in range(length))
 
 
-class Registration(models.Model):
-    user = models.OneToOneField(to=User, on_delete=models.CASCADE)
-    passcode = models.CharField(max_length=5, default=code_generator)
+class RegProfile(models.Model):
+    code = models.CharField(max_length=5, default=code_generator)
 
-    def my_password_reset(self):
-        self.passcode = code_generator()
+    activated = models.BooleanField(default=False)
+
+    action = models.CharField(max_length=100)
+
+    email = models.CharField(max_length=200, unique=True)
+
+    def __str__(self):
+        return f'Email: {self.email} - code: {self.code}'

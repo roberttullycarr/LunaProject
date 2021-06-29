@@ -51,8 +51,8 @@ INSTALLED_APPS = [
     # Our apps
     'user',
     'review',
-    'restaurant',
     'reg_profile',
+    'restaurant',
     'comment'
 ]
 

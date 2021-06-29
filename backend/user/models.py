@@ -1,14 +1,12 @@
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import RegexValidator
 from django.db import models
-
+import random
 from settings import settings
-
-
+from reg_profile.models import RegProfile
 
 
 class User(AbstractUser):
-
     phone_regex = RegexValidator(regex=r'^+?1?\d{9,15}$', message="Phone number must be entered in "
                                                                   "the format: '+999999999'. Up to 15 "
                                                                   "digits allowed.")
@@ -31,6 +29,11 @@ class User(AbstractUser):
 
     profile_picture = models.ImageField(upload_to='user_media', blank=True, null=True)
 
+    code = models.CharField(max_length=60, blank=True, null=True)
+
+    activated = models.BooleanField(default=False)
+
+    reg_profile = models.ForeignKey(to=RegProfile, related_name="review_user", on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return self.username
