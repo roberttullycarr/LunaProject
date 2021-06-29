@@ -24,4 +24,3 @@ class RegProfile(models.Model):
 
     def my_password_reset(self):
         self.passcode = code_generator()
-
