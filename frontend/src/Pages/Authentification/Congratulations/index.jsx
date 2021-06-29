@@ -10,7 +10,7 @@ const Title = styled.h1`
     margin-bottom: 4%;
     padding-bottom: 15px;
     border-bottom: solid 3px ${props => props.theme.orange};
-`
+`;
 
 const Text = styled.p`
     font-size: ${props => props.theme.textSizeM};
@@ -18,7 +18,7 @@ const Text = styled.p`
     flex-wrap: wrap;
     text-align: center;
     max-width: 510px;
-`
+`;
 
 const Congratulations = () => {
     return (
