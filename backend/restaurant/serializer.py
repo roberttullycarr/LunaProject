@@ -1,10 +1,10 @@
 from rest_framework import serializers
-from user.serializer import UserProfileSerializer
+from user.serializer import UserProfileSerializerPrivate
 from restaurant.models import Restaurant
 
 
 class RestaurantSerializer(serializers.ModelSerializer):
-    user = UserProfileSerializer(read_only=True)
+    user = UserProfileSerializerPrivate(read_only=True)
 
     class Meta:
         model = Restaurant
