@@ -1,38 +1,85 @@
 import styled from "styled-components";
-import {BaseInput} from "../../../Components/Generic/Fields";
-import {BaseButton} from "../../../Components/Generic/Buttons";
-
-const Wrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    height: 100vh;
-    width: 100%;
-    background-color: ${props => props.theme.backgroundLightGrey};
-`
+import { BaseInput } from "../../../Components/Generic/Fields/index.js";
+import { BaseButton } from "../../../Components/Generic/Buttons";
+import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useState } from "react";
+import Axios from "../../../Store/Axios";
+import { Wrapper } from "../../../Components/Generic/RegistrationWrapper";
+import MenuBar from "../../../Components/Menu Bar";
+import Footer from "../../../Components/Footer";
 
 const Title = styled.h1`
     color: ${props => props.theme.textDarkGrey};
-    margin-top: 5%;
-    margin-bottom: 7%;
-`
+    font-size: ${props => props.theme.textSizeSecondTitle};
+    margin-top: 3%;
+    margin-bottom: 4%;
+    padding-bottom: 15px;
+    border-bottom: solid 3px ${props => props.theme.orange};
+`;
 
-const RegistrationInput = styled(BaseInput)`
-    width: 30%;
+export const RegistrationInput = styled(BaseInput)`
     min-width: 200px;
+    width: 25%;
     font-size: ${props => props.theme.textSizeM};
     padding: 23px;
-    margin-bottom: 5%;
-`
+`;
 
 const SignIn = () => {
+    const history = useHistory();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const dispatch = useDispatch();
+
+    const OnEmailChange = (event) => {
+        setEmail(event.target.value)
+    }
+
+    const OnPasswordChange = (event) => {
+        setPassword(event.target.value);
+    }
+
+    const onSubmitHandler = async (event) => {
+        event.preventDefault();
+        const url = "auth/token/";
+        const body = {
+            email,
+            password
+        };
+
+        try {
+            const response = await Axios.post(url, body);
+
+            if (response.status === 200) {
+                setEmail("");
+                setPassword("");
+
+                dispatch({
+                    type: "SIGNIN",
+                    payload: response.data,
+                });
+                localStorage.setItem("token", response.data.access);
+                history.push("/");
+            }
+        }
+        catch(err) {
+            if (err.reponse.status === 400) {
+                console.log(err.reponse);
+            }
+        }
+    }
+
     return (
-        <Wrapper>
-            <Title>REGISTRATION</Title>
-            <RegistrationInput name={"E-Mail address"} />
-            <BaseButton name="Register" >Register</BaseButton>
-        </Wrapper>
+        <>
+            <MenuBar />
+            <Wrapper onSubmit={onSubmitHandler} >
+                <Title>LOGIN</Title>
+                <RegistrationInput name="E-Mail address" onChange={OnEmailChange} type="text" placeholder="E-Mail address" />
+                <RegistrationInput name="Password" onChange={OnPasswordChange} type="password" placeholder="Password" />
+                <BaseButton action="Login" ></BaseButton>
+            </Wrapper>
+            <Footer />
+        </>
     )
 }
 

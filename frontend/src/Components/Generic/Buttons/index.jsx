@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const BaseButton = styled.button`
+const Button = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -11,12 +11,13 @@ export const BaseButton = styled.button`
     color: ${(props) => props.theme.backgroundWhite};
     font-size: ${(props) => props.theme.textSizeM};
     background-color: ${(props) => props.theme.orange};
+    margin-top: 4%;
 `
 
-export const Button = ({action}) => {
+export const BaseButton = ({action}) => {
     return (
-        <BaseButton name={action}>
+        <Button name={action}>
             {action}
-        </BaseButton>
+        </Button>
     )
 }
