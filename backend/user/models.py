@@ -25,8 +25,6 @@ class User(AbstractUser):
 
     description = models.CharField(verbose_name='description', max_length=400, blank=True)
 
-    friends_with = models.ManyToManyField(to=settings.AUTH_USER_MODEL, blank=True, related_name="friends_of")
-
     profile_picture = models.ImageField(upload_to='user_media', blank=True, null=True)
 
     code = models.CharField(max_length=60, blank=True, null=True)

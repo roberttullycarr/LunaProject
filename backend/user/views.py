@@ -27,20 +27,17 @@ class CreateUser(GenericAPIView):
             return Response(data={"error": "Wrong code, try again."}, status=404)
 
 
-
-class ValidateUser(GenericAPIView):
+class ListAllUsers(GenericAPIView):
     queryset = User.objects.all()
     serializer_class = UserProfileSerializerPrivate
-    permission_classes = [AllowAny]
 
-    def post(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
+    def get(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
 
 
-class ListAllUsers(GenericAPIView):
+class ListCurrentUser(GenericAPIView):
     queryset = User.objects.all()
     serializer_class = UserProfileSerializerPrivate
 
