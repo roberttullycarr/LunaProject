@@ -23,3 +23,6 @@ class Review(models.Model):
     user = models.ForeignKey(to=User, related_name="review_user", on_delete=models.CASCADE)
 
     likes = models.ManyToManyField(to=User, related_name="review_likes", blank=True)
+
+    def __str__(self):
+        return f" User: {self.user}. Review: {self.text}"
