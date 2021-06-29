@@ -1,20 +1,14 @@
 import styled from "styled-components";
+import { Wrapper } from "../../../Components/Generic/RegistrationWrapper";
 
-const Wrapper = styled.form`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    height: 100vh;
-    width: 100%;
-    background-color: ${props => props.theme.backgroundLightGrey};
-`
 
 const Title = styled.h1`
     color: ${props => props.theme.textDarkGrey};
     font-size: ${props => props.theme.textSizeSecondTitle};
     margin-top: 3%;
     margin-bottom: 4%;
+    padding-bottom: 15px;
+    border-bottom: solid 3px ${props => props.theme.orange};
 `
 
 const Text = styled.p`

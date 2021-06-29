@@ -11,6 +11,7 @@ const Button = styled.button`
     color: ${(props) => props.theme.backgroundWhite};
     font-size: ${(props) => props.theme.textSizeM};
     background-color: ${(props) => props.theme.orange};
+    margin-top: 4%;
 `
 
 export const BaseButton = ({action}) => {

@@ -1,26 +1,17 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-import { BaseInput } from "../../../Components/Generic/Fields";
-import {BaseButton} from "../../../Components/Generic/Buttons";
+import { BaseInput } from "../../../Components/Generic/Fields/index.js";
+import { BaseButton } from "../../../Components/Generic/Buttons";
 import Axios from "../../../Store/Axios";
-
-const Wrapper = styled.form`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    height: 100vh;
-    width: 100%;
-    background-color: ${props => props.theme.backgroundLightGrey};
-`
+import { Wrapper } from "../../../Components/Generic/RegistrationWrapper";
 
 const Grid = styled.div`
   display: grid;
   grid-template: repeat(3, 1fr) / repeat(2, 1fr);
   grid-gap: 30px;
   margin-top: 30px;
-  width: 100%;
+  width: 50%;
 `;
 
 const Title = styled.h1`
@@ -28,15 +19,17 @@ const Title = styled.h1`
     font-size: ${props => props.theme.textSizeSecondTitle};
     margin-top: 3%;
     margin-bottom: 4%;
-`
+    padding-bottom: 15px;
+    border-bottom: solid 3px ${props => props.theme.orange};
+`;
 
 const RegistrationInput = styled(BaseInput)`
-    width: 20%;
+    width: 100%;
     min-width: 260px;
     font-size: ${props => props.theme.textSizeM};
     padding: 23px;
     margin-bottom: 5%;
-`
+`;
 
 const Verification = () => {
     const [email, setEmail] = useState("");
@@ -86,7 +79,7 @@ const Verification = () => {
         try {
           const resp = await Axios.patch(url, body);
           if (resp.status === 200) {
-            history.push("/feed");
+            history.push("/");
           }
         } catch (err) {
           console.log(err.response);
@@ -95,14 +88,14 @@ const Verification = () => {
 
     return (
         <Wrapper onSubmit={onSubmitHandler} >
-            <Title>LOGIN</Title>
+            <Title>VERIFICATION</Title>
             <Grid>
-              <RegistrationInput name="Email" type="text" onChange={onEmailChange} />
-              <RegistrationInput name="Validation code" type="text" onChange={onCodeChange} />
-              <RegistrationInput name="Username" type="text" onChange={onUsernameChange} />
-              <RegistrationInput name="Location" type="text" onChange={onLocationChange} />
-              <RegistrationInput name="Password" type="password" onChange={onPasswordChange} />
-              <RegistrationInput name="Password repeat" type="password" onChange={onPasswordRepeatChange} />
+              <RegistrationInput name="Email" type="text" onChange={onEmailChange} placeholder="E-Mail address"/>
+              <RegistrationInput name="Validation code" type="text" onChange={onCodeChange} placeholder="Validation code" />
+              <RegistrationInput name="Username" type="text" onChange={onUsernameChange} placeholder="Username" />
+              <RegistrationInput name="Location" type="text" onChange={onLocationChange} placeholder="Location"/>
+              <RegistrationInput name="Password" type="password" onChange={onPasswordChange} placeholder="Password"/>
+              <RegistrationInput name="Password repeat" type="password" onChange={onPasswordRepeatChange} placeholder="Password repeat"/>
             </Grid>
             <BaseButton action="Finish registration" ></BaseButton>
         </Wrapper>
