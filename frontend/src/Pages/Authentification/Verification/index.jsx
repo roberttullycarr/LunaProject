@@ -5,6 +5,8 @@ import { BaseInput } from "../../../Components/Generic/Fields/index.js";
 import { BaseButton } from "../../../Components/Generic/Buttons";
 import Axios from "../../../Store/Axios";
 import { Wrapper } from "../../../Components/Generic/RegistrationWrapper";
+import MenuBar from "../../../Components/Menu Bar";
+import Footer from "../../../Components/Footer";
 
 const Grid = styled.div`
   display: grid;
@@ -87,18 +89,23 @@ const Verification = () => {
     };
 
     return (
-        <Wrapper onSubmit={onSubmitHandler} >
-            <Title>VERIFICATION</Title>
-            <Grid>
-              <RegistrationInput name="Email" type="text" onChange={onEmailChange} placeholder="E-Mail address"/>
-              <RegistrationInput name="Validation code" type="text" onChange={onCodeChange} placeholder="Validation code" />
-              <RegistrationInput name="Username" type="text" onChange={onUsernameChange} placeholder="Username" />
-              <RegistrationInput name="Location" type="text" onChange={onLocationChange} placeholder="Location"/>
-              <RegistrationInput name="Password" type="password" onChange={onPasswordChange} placeholder="Password"/>
-              <RegistrationInput name="Password repeat" type="password" onChange={onPasswordRepeatChange} placeholder="Password repeat"/>
-            </Grid>
-            <BaseButton action="Finish registration" ></BaseButton>
-        </Wrapper>
+        <>
+            <MenuBar />
+            <Wrapper onSubmit={onSubmitHandler} >
+                <Title>VERIFICATION</Title>
+                <Grid>
+                <RegistrationInput name="Email" type="text" onChange={onEmailChange} placeholder="E-Mail address"/>
+                <RegistrationInput name="Validation code" type="text" onChange={onCodeChange} placeholder="Validation code" />
+                <RegistrationInput name="Username" type="text" onChange={onUsernameChange} placeholder="Username" />
+                <RegistrationInput name="Location" type="text" onChange={onLocationChange} placeholder="Location"/>
+                <RegistrationInput name="Password" type="password" onChange={onPasswordChange} placeholder="Password"/>
+                <RegistrationInput name="Password repeat" type="password" onChange={onPasswordRepeatChange} placeholder="Password repeat"/>
+                </Grid>
+                <BaseButton action="Finish registration" ></BaseButton>
+            </Wrapper>
+            <Footer />
+        </>
+        
     )
 }
 

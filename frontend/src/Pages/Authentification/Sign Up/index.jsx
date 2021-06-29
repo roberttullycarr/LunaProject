@@ -5,6 +5,8 @@ import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import Axios from "../../../Store/Axios";
 import { Wrapper } from "../../../Components/Generic/RegistrationWrapper";
+import MenuBar from "../../../Components/Menu Bar";
+import Footer from "../../../Components/Footer";
 
 const Title = styled.h1`
     color: ${props => props.theme.textDarkGrey};
@@ -52,11 +54,15 @@ const SignUp = () => {
     }
 
     return (
-        <Wrapper onSubmit={onSubmitHandler} >
-            <Title>REGISTRATION</Title>
-            <RegistrationInput name="E-Mail address" onChange={OnEmailChange} placeholder="E-Mail address" />
-            <BaseButton action="Register" ></BaseButton>
-        </Wrapper>
+        <>
+            <MenuBar />
+            <Wrapper onSubmit={onSubmitHandler} >
+                <Title>REGISTRATION</Title>
+                <RegistrationInput name="E-Mail address" onChange={OnEmailChange} placeholder="E-Mail address" />
+                <BaseButton action="Register" ></BaseButton>
+            </Wrapper>
+            <Footer />
+        </>
     )
 }
 

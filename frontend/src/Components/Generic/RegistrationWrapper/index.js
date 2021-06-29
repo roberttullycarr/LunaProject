@@ -7,5 +7,7 @@ export const Wrapper = styled.form`
     justify-content: flex-start;
     height: 100vh;
     width: 100%;
+    position: fixed;
+    margin-top: 71px;
     background-color: ${props => props.theme.backgroundLightGrey};
 `

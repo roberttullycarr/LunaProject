@@ -6,6 +6,8 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import Axios from "../../../Store/Axios";
 import { Wrapper } from "../../../Components/Generic/RegistrationWrapper";
+import MenuBar from "../../../Components/Menu Bar";
+import Footer from "../../../Components/Footer";
 
 const Title = styled.h1`
     color: ${props => props.theme.textDarkGrey};
@@ -68,12 +70,16 @@ const SignIn = () => {
     }
 
     return (
-        <Wrapper onSubmit={onSubmitHandler} >
-            <Title>LOGIN</Title>
-            <RegistrationInput name="E-Mail address" onChange={OnEmailChange} type="text" placeholder="E-Mail address" />
-            <RegistrationInput name="Password" onChange={OnPasswordChange} type="password" placeholder="Password" />
-            <BaseButton action="Login" ></BaseButton>
-        </Wrapper>
+        <>
+            <MenuBar />
+            <Wrapper onSubmit={onSubmitHandler} >
+                <Title>LOGIN</Title>
+                <RegistrationInput name="E-Mail address" onChange={OnEmailChange} type="text" placeholder="E-Mail address" />
+                <RegistrationInput name="Password" onChange={OnPasswordChange} type="password" placeholder="Password" />
+                <BaseButton action="Login" ></BaseButton>
+            </Wrapper>
+            <Footer />
+        </>
     )
 }
 
