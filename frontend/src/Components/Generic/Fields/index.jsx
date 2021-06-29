@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Input = styled.input`
+export const Input = styled.input`
     color: ${props => props.theme.TextDarkGrey};
     outline: none;
     height: 52px;
