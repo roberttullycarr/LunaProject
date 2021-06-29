@@ -6,6 +6,8 @@ import {ThemeProvider} from "styled-components";
 import {defaultTheme, GlobalStyle} from "./Styles";
 import {Provider} from "react-redux";
 
+const token = localStorage.getItem('token')
+if(token) store.dispatch({type: 'ADD_TOKEN', payload: token})
 
 ReactDOM.render(
 <React.StrictMode>
