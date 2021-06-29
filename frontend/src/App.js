@@ -3,6 +3,15 @@ import SignIn from "./Pages/Authentification/Sign In";
 import SignUp from "./Pages/Authentification/Sign Up";
 import Congratulations from "./Pages/Authentification/Congratulations";
 import Verification from "./Pages/Authentification/Verification";
+import Homepage from "./Pages/Home";
+import Restaurants from "./Pages/Search/Restaurants";
+import Reviews from "./Pages/Search/Reviews";
+import Users from "./Pages/Search/Users";
+import Restaurant from "./Pages/Restaurant";
+import Review from "./Pages/Review";
+import UserProfile from "./Pages/UserProfile";
+import NewReview from "./Pages/NewReview";
+import NewRestaurant from "./Pages/NewRestaurant";
 
 
 function App() {
@@ -13,7 +22,16 @@ function App() {
                 <Route exact path="/">
                     <Redirect to="/signin" />
                 </Route>
-                <Route exact path="/signin" component={SignIn} /> */}
+                <Route exact path="/" component={Homepage} />
+                <Route exact path={"/search/restaurants"} component={Restaurants} />
+                <Route exact path={"/search/reviews"} component={Reviews} />
+                <Route exact path={"/search/users"} component={Users} />
+                <Route exact path={"/restaurant/:index"} component={Restaurant} />
+                <Route exact path={"/review/:index"} component={Review} />
+                <Route exact path={"/user/:index"} component={UserProfile} />
+                <Route exact path={"/create/newreview/:index"} component={NewReview} />
+                <Route exact path={"/create/newrestaurant"} component={NewRestaurant} />
+                <Route exact path="/signin" component={SignIn} />
                 <Route exact path="/signup" component={SignUp} />
                 <Route exact path="/signup/success" component={Congratulations} />
                 <Route exact path="/signup/verification" component={Verification} />

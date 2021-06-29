@@ -1,6 +1,9 @@
+import MenuBar from "../../../Components/Menu Bar";
+
+
 const SignUp = () => {
     return (
-        <h1>Sign up!</h1>
+        <MenuBar/>
     )
 }
 
