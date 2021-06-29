@@ -72,7 +72,6 @@ class RegisterMail(GenericAPIView):
 #         instance = RegProfile.objects.filter(Q(email=request.data['email']) & Q(code=request.data['code']))
 #         if instance:
 #             # creating the user object
-#             # todo
 #             # - where to handle / check the password_repeat?
 #             # - password are not hashed yet
 #             user = User(email=request.data['email'],
