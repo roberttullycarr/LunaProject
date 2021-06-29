@@ -1,6 +1,5 @@
 from django.contrib.auth import get_user_model
 from django.db import models
-import datetime
 from django_countries.fields import CountryField
 
 User = get_user_model()

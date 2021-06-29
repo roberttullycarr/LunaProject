@@ -1,10 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import RegexValidator
 from django.db import models
-
 from settings import settings
-
-
 
 
 class User(AbstractUser):
@@ -23,7 +20,6 @@ class User(AbstractUser):
     description = models.CharField(verbose_name='description', max_length=400, blank=True)
     friends_with = models.ManyToManyField(to=settings.AUTH_USER_MODEL, blank=True, related_name="friends_of")
     profile_picture = models.ImageField(upload_to='user_media', blank=True, null=True)
-
 
     def __str__(self):
         return self.username
