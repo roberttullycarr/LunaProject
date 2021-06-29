@@ -14,6 +14,9 @@ class ListCreateRestaurant(ListCreateAPIView):
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
 
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
+
 
 class ListRestaurantsCategory(ListAPIView):
     """
@@ -38,7 +41,7 @@ class ListRestaurantsUser(ListAPIView):
 
     def get_queryset(self):
         user_id = self.kwargs.get("user_id")
-        return Restaurant.objects.filter(user__id=user_id).order_by("-created")
+        return Restaurant.objects.filter(created_by__id=user_id).order_by("-joined")
 
 
 class RetrieveUpdateDestroyRestaurant(RetrieveUpdateDestroyAPIView):
