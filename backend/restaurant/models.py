@@ -8,8 +8,8 @@ User = get_user_model()
 class Restaurant(models.Model):
 
     CATEGORIES = (
-        ('IT', 'Italien'),
-        ('IND', 'Indien'),
+        ('IT', 'Italian'),
+        ('IND', 'Indian'),
         ('CN', 'Chinese'),
         ('JP', 'Japanese'),
         ('TH', 'Thai'),
@@ -46,4 +46,4 @@ class Restaurant(models.Model):
                                    blank=True, null=True)
 
     def __str__(self):
-        return f"{self.name}: {self.price_level}"
+        return f"{self.name}. Website: {self.website}"
