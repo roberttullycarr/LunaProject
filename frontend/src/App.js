@@ -3,7 +3,7 @@ import SignIn from "./Pages/Authentification/Sign In";
 import SignUp from "./Pages/Authentification/Sign Up";
 import Congratulations from "./Pages/Authentification/Congratulations";
 import Verification from "./Pages/Authentification/Verification";
-import Homepage from "./Pages/Home";
+rge devimport Homepage from "./Pages/Home";
 import Restaurants from "./Pages/Search/Restaurants";
 import Reviews from "./Pages/Search/Reviews";
 import Users from "./Pages/Search/Users";
