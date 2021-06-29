@@ -35,6 +35,7 @@ flex-shrink: 0;
     cursor: pointer;
 }
 `
+
 const SignUpButton =  styled(SLButton)`
 border-radius: 20.5px 0px 0px 20.5px;
 margin-right: 1px;
