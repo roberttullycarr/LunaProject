@@ -1,7 +1,17 @@
 from rest_framework.generics import ListAPIView, ListCreateAPIView, RetrieveUpdateDestroyAPIView
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from restaurant.models import Restaurant
 from restaurant.serializer import RestaurantSerializer
+
+
+class ListRestaurant(ListAPIView):
+    """
+    get:
+    List all Restaurant being anonymous.
+    """
+    queryset = Restaurant.objects.all()
+    serializer_class = RestaurantSerializer
+    permission_classes = [AllowAny]
 
 
 class ListCreateRestaurant(ListCreateAPIView):
@@ -24,11 +34,11 @@ class ListRestaurantsCategory(ListAPIView):
     List all Restaurants by Category.
     """
     serializer_class = RestaurantSerializer
-    lookup_url_kwarg = 'category_id'
+    lookup_url_kwarg = 'category_code'
 
     def get_queryset(self):
-        category_id = self.kwargs.get("category_id")
-        return Restaurant.objects.filter(category__id=category_id)
+        category_code = self.kwargs.get("category_code")
+        return Restaurant.objects.filter(category=category_code)
 
 
 class ListRestaurantsUser(ListAPIView):
@@ -59,5 +69,3 @@ class RetrieveUpdateDestroyRestaurant(RetrieveUpdateDestroyAPIView):
     serializer_class = RestaurantSerializer
     lookup_url_kwarg = 'id'
     permission_classes = [IsAuthenticated]
-
-

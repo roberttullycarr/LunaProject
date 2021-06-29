@@ -50,9 +50,9 @@ INSTALLED_APPS = [
     'corsheaders',
     # Our apps
     'user',
-    'restaurant',
     'review',
     'reg_profile',
+    'restaurant',
     'comment'
 ]
 
