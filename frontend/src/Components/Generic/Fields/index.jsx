@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const BaseInput = styled.input`
+const Input = styled.input`
     color: ${props => props.theme.TextDarkGrey};
     outline: none;
     height: 52px;
@@ -12,14 +12,12 @@ export const BaseInput = styled.input`
     }
 `
 
-const Input = ({type, id, name, onChange}) => {
+export const BaseInput = ({type, id, name, onChange}) => {
     const onChangeHandler = (event) => {
         onChange(event);
     };
 
     return (
-        <BaseInput type={type} placeholder={name} id ={id} onChange={onChangeHandler} />
+        <Input type={type} placeholder={name} id={id} onChange={onChangeHandler} />
     )
 }
-
-export default Input;

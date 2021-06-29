@@ -1,9 +1,10 @@
 .idea
-.DS_Store
 __pycache__
 *.pyc
-node_modules
-app/project/post/migrations/[0-9]*.py
+# excluding files in migrations folders
+**/migrations/*
+# re-including __init__.py files in migrations folders
+!**/migrations/__init__.py
 
 # dependencies
 /node_modules
