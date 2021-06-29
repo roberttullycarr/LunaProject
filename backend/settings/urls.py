@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework_simplejwt import views as jwt_views
 
+
 jwt_views = [
     # Your URLs...
     path('', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
@@ -24,8 +25,19 @@ jwt_views = [
     path('verify/', jwt_views.TokenVerifyView.as_view(), name='token_refresh'),
 ]
 
+
+api_patterns = [
+    path('restaurants/', include('restaurant.urls')),
+    path('auth/token/', include(jwt_views)),
+    path('', include('user.urls')),
+    path('auth/registration/', include('reg_profile.urls')),
+]
+
+
 urlpatterns = [
     path('backend/admin/', admin.site.urls),
     path('backend/api/auth/token/', include(jwt_views)),
-    path('backend/api/', include('review.urls'))
+    path('backend/api/', include('review.urls')),
+    path('backend/api/', include(api_patterns)),
+
 ]
