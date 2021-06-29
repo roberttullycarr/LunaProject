@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {Input} from "../Generic/Fields/index";
+import {BaseInput} from "../Generic/Fields/index";
 import arrow from "../../Assets/SVG/arrow.svg"
 
 const SearchMain = styled.div`
@@ -12,7 +12,7 @@ border-top: 1px solid ${props => props.theme.DetailsGrey};
 border-bottom: 1px solid ${props => props.theme.DetailsGrey};
 `
 
-const SearchInput = styled(Input)`
+const SearchInput = styled(BaseInput)`
 width: 80%;
 height: 100%;
 margin-bottom: 0;
@@ -59,7 +59,7 @@ const SearchBar = () => {
             <SearchInput type={'text'} placeholder={'Search'}/>
             <CategoryForm>
                 <CategorySelect id="category" name="category">
-                    <option value="Select a Category..." selected>Select a Category...</option>
+                    <option defaultValue="Select a Category..." >Select a Category...</option>
                     <option value="Indian">Indian</option>
                     <option value="asian">Asian</option>
                     <option value="Belgian" selected>Belgian</option>
