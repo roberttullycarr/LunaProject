@@ -1,9 +1,8 @@
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import RegexValidator
 from django.db import models
-import random
-from settings import settings
 from reg_profile.models import RegProfile
+from settings import settings
 
 
 class User(AbstractUser):

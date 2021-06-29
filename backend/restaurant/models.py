@@ -1,9 +1,9 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 from django_countries.fields import CountryField
-from django.conf import settings
 
 User = get_user_model()
+
 
 class Restaurant(models.Model):
 
@@ -41,7 +41,8 @@ class Restaurant(models.Model):
     opening_hours = models.CharField(verbose_name='opening_hours', max_length=40)
     price_level = models.TextField(choices=PRICELEVEL, blank=True)
     image = models.ImageField(upload_to='restaurant_media', blank=True, null=True)
-    created_by = models.ForeignKey(to=User, related_name="created_by", on_delete=models.CASCADE,
+    joined = models.DateTimeField(verbose_name='joined', auto_now_add=True)
+    created_by = models.ForeignKey(to=User, related_name="restaurants", on_delete=models.CASCADE,
                                    blank=True, null=True)
 
     def __str__(self):
