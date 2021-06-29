@@ -17,6 +17,10 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework_simplejwt import views as jwt_views
 
+api_patterns = [
+    path('restaurants/', include('restaurant.urls')),
+]
+
 jwt_views = [
     # Your URLs...
     path('', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
@@ -26,5 +30,6 @@ jwt_views = [
 
 urlpatterns = [
     path('backend/admin/', admin.site.urls),
+    path('backend/api/', include(api_patterns)),
     path('backend/api/auth/token/', include(jwt_views)),
 ]
