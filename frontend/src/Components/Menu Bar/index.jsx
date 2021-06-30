@@ -10,6 +10,9 @@ justify-content: space-between;
 align-items: center;
 position: fixed; 
 top: 0; 
+z-index: 1;
+border-bottom: 1px solid ${props => props.theme.DetailsGrey};
+background-color: ${props => props.theme.backgroundWhite};
 `
 
 const Logo = styled.img`
