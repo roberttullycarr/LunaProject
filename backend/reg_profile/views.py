@@ -11,6 +11,10 @@ User = get_user_model()
 
 
 class RegisterMail(GenericAPIView):
+    """
+    post:
+    Create a new registation profile with generated code. Sends email with code to sent email adress.
+    """
     queryset = RegProfile.objects.all()
     serializer_class = RegProfileSerializer
     permission_classes = [AllowAny]
