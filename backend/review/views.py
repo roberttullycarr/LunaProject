@@ -1,10 +1,27 @@
-from rest_framework import status
+from rest_framework import status, filters
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, GenericAPIView, \
     ListAPIView
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from restaurant.models import Restaurant
 from review.models import Review
 from review.serializer import ReviewSerializer
+
+
+"""
+    get:
+    Search reviews of the review   
+"""
+
+
+class SearchReview(ListAPIView):
+
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['text']
+    permission_classes = [AllowAny]
+
 
 """
     post: 
