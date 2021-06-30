@@ -2,7 +2,8 @@ import random
 
 from django.db.models import Q
 from django.core.mail import send_mail
-from rest_framework.generics import GenericAPIView
+from rest_framework import filters
+from rest_framework.generics import GenericAPIView, ListAPIView
 from rest_framework.response import Response
 
 from .models import User
@@ -31,18 +32,15 @@ class CreateUser(GenericAPIView):
             return Response(data={"error": "Wrong code, try again."}, status=404)
 
 
-class ListAllUsers(GenericAPIView):
+class ListAllUsers(ListAPIView):
     """
     get:
     List all user.
     """
     queryset = User.objects.all()
     serializer_class = UserProfileSerializerPublic
-
-    def get(self, request, *args, **kwargs):
-        queryset = self.get_queryset()
-        serializer = self.get_serializer(queryset, many=True)
-        return Response(serializer.data)
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['username', 'first_name', 'last_name']
 
 
 class ListUpdateCurrentUser(GenericAPIView):
@@ -68,20 +66,6 @@ class ListUpdateCurrentUser(GenericAPIView):
         return Response(serializer.data)
 
 
-class SearchUser(GenericAPIView):
-    """
-    get:
-    Search user by keyword and username.
-    """
-    serializer_class = UserProfileSerializerPublic
-
-    def get(self, request, *args, **kwargs):
-        search_key = self.request.query_params.get('keyword')
-        queryset = User.objects.filter(username__contains=search_key)
-        serializer = self.get_serializer(queryset, many=True)
-        return Response(serializer.data)
-
-
 class SingleUser(GenericAPIView):
     """
     get:
@@ -95,6 +79,7 @@ class SingleUser(GenericAPIView):
         queryset = self.get_object()
         serializer = self.get_serializer(queryset)
         return Response(serializer.data)
+
 
 # snippet to generate random code
 def code_generator(length=5):

@@ -15,8 +15,8 @@ class CommentSerializer(serializers.ModelSerializer):
     #     return False
 
     @staticmethod
-    def get_amount_of_likes(user):
-        return user.comment_likes.all().count()
+    def get_amount_of_likes(instance):
+        return instance.likes.all().count()
 
     class Meta:
         model = Comment

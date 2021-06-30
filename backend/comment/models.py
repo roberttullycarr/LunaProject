@@ -16,4 +16,4 @@ class Comment(models.Model):
     likes = models.ManyToManyField(to=User, related_name="comment_likes", blank=True)
 
     def __str__(self):
-        return f'Comment from  on {self.review}'
+        return f'Comment from {self.user} on {self.review}'
