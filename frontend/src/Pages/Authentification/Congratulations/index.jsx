@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Wrapper } from "../../../Components/Generic/RegistrationWrapper";
+import { Wrapper } from "../../../Components/Generic/PageWrapper";
 import MenuBar from "../../../Components/Menu Bar";
 import Footer from "../../../Components/Footer";
 

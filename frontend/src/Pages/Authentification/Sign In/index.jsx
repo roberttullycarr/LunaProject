@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import Axios from "../../../Store/Axios";
-import { Wrapper } from "../../../Components/Generic/RegistrationWrapper";
+import { Wrapper } from "../../../Components/Generic/PageWrapper";
 import MenuBar from "../../../Components/Menu Bar";
 import Footer from "../../../Components/Footer";
 

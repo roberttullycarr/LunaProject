@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { BaseInput } from "../../../Components/Generic/Fields/index.js";
 import { BaseButton } from "../../../Components/Generic/Buttons";
 import Axios from "../../../Store/Axios";
-import { Wrapper } from "../../../Components/Generic/RegistrationWrapper";
+import { Wrapper } from "../../../Components/Generic/PageWrapper";
 import MenuBar from "../../../Components/Menu Bar";
 import Footer from "../../../Components/Footer";
 

@@ -25,7 +25,8 @@ export const defaultTheme = {
   textBlack: "#000000",
   textWhite: "#FFFFFF",
   textRating: "#7E7E7E",
-  DetailsGrey: "#EBEBEB",
+  DetailsGrey: "#D8D8D8",
+  DetailsLightGrey: "#EBEBEB",
 
   // Linear Gradients
 
@@ -37,6 +38,7 @@ export const defaultTheme = {
   textSizeL: "30px",
   textSizeM: "20px",
   textSizeSecondTitle: "24px",
+  textSizeStandardInput: "22px",
   textSizePostName: "18px",
   textSizeDefault: "16px",
   textSizeS: "14px",
