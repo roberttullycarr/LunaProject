@@ -73,8 +73,8 @@ class CreateDeleteLike(GenericAPIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-class ListLikedView(GenericAPIView):  # need test
-    queryset = Review.objects.all().order_by("review").reverse()  # here i might use review_likes
+class ListLikedView(GenericAPIView):  # tested
+    queryset = Review.objects.all().order_by("review").reverse()
     serializer_class = ReviewSerializer
 
     def get(self, request):
