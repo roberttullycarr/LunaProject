@@ -50,13 +50,14 @@ INSTALLED_APPS = [
     'corsheaders',
     # Our apps
     'user',
-    'restaurant',
     'review',
     'reg_profile',
+    'restaurant',
     'comment'
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',

@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import logo from "../../Assets/SVG/logo.svg"
+import { useHistory } from "react-router-dom";
 
 const MBMain = styled.div`
 width: 100%;
@@ -9,6 +10,9 @@ justify-content: space-between;
 align-items: center;
 position: fixed; 
 top: 0; 
+z-index: 1;
+border-bottom: 1px solid ${props => props.theme.DetailsGrey};
+background-color: ${props => props.theme.backgroundWhite};
 `
 
 const Logo = styled.img`
@@ -63,6 +67,19 @@ flex-shrink: 1;
 `
 
 const MenuBar = () => {
+    const history = useHistory();
+
+    const LogHandler = () => {
+        if (localStorage.token) {
+            console.log('in log handler')
+            localStorage.clear();
+            history.push('/signin');
+        }
+        else {
+            history.push('/signin');
+        }
+    }
+
     return (
      <MBMain>
         <Logo src={logo}/>
@@ -71,7 +88,7 @@ const MenuBar = () => {
              <NavButton>Search</NavButton>
              <NavButton>Profile</NavButton>
              <SignUpButton>SIGN UP</SignUpButton>
-             <LoginButton>LOGIN</LoginButton>
+             <LoginButton onClick={LogHandler}>{localStorage.token ? "LOG OUT" : "LOG IN"}</LoginButton>
          </MBRight>
      </MBMain>
     )
