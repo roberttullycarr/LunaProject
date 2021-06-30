@@ -9,6 +9,7 @@ border-radius: 3px;
 display: flex;
 position: relative;
 flex-direction: column;
+background-color: ${props => props.theme.backgroundWhite};
 `
 const TopBorder = styled.div`
 height: 8px;
@@ -48,15 +49,15 @@ width: 100%;
 border-radius: 0px 0px 3px 3px;
 `
 
-const RestaurantTile = () => {
+const RestaurantTile = ({ data }) => {
     return (
         <RestaurantTileMain>
             <TopBorder />
             <RestBody>
-                <RestTitle>Guido's Pizza</RestTitle>
-                <RestAddress>Rodenberg 19 Tessenderlo</RestAddress>
+                <RestTitle>{data.name}</RestTitle>
+                <RestAddress>{data.street}</RestAddress>
             </RestBody>
-            <RestImg src={restaurant1}/>
+            <RestImg src={data.image}/>
         </RestaurantTileMain>
     )
 }
