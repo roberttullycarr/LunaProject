@@ -1,7 +1,7 @@
 from rest_framework.generics import ListAPIView, ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from restaurant.models import Restaurant
-from restaurant.serializer import RestaurantSerializer
+from restaurant.serializer import RestaurantSerializer, CountrySerializer
 from rest_framework import filters
 
 
@@ -72,3 +72,16 @@ class RetrieveUpdateDestroyRestaurant(RetrieveUpdateDestroyAPIView):
     serializer_class = RestaurantSerializer
     lookup_url_kwarg = 'id'
     permission_classes = [IsAuthenticated]
+
+
+class ListCountryRestaurant(ListAPIView):
+    """
+    get:
+    List all country.
+    """
+
+    serializer_class = CountrySerializer
+
+    def get_queryset(self):
+        result_id = Restaurant.objects.values()[0]['id']
+        return Restaurant.objects.filter(id=result_id)
