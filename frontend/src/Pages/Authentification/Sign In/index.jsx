@@ -31,6 +31,7 @@ const SignIn = () => {
     const [password, setPassword] = useState("");
     const dispatch = useDispatch();
 
+    console.log(email, password);
     const OnEmailChange = (event) => {
         setEmail(event.target.value)
     }
@@ -43,10 +44,9 @@ const SignIn = () => {
         event.preventDefault();
         const url = "auth/token/";
         const body = {
-            email,
-            password
+            email: email,
+            password: password,
         };
-
         try {
             const response = await Axios.post(url, body);
 

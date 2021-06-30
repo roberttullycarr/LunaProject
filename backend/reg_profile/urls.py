@@ -5,6 +5,5 @@ from .views import RegisterMail
 
 urlpatterns = [
     path('', RegisterMail.as_view()),
-    # path('password-reset/', ResetPasswordView.as_view()),
-    # path('password-reset/validate/', ValidateNewPasswordView.as_view()),
+
 ]

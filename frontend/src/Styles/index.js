@@ -25,7 +25,8 @@ export const defaultTheme = {
   textBlack: "#000000",
   textWhite: "#FFFFFF",
   textRating: "#7E7E7E",
-  DetailsGrey: "#EBEBEB",
+  DetailsGrey: "#D8D8D8",
+  DetailsLightGrey: "#EBEBEB",
 
   // Linear Gradients
 

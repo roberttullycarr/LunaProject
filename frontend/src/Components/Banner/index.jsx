@@ -5,6 +5,7 @@ import {BaseInput} from "../Generic/Fields";
 const BannerMain = styled.div`
 width: 100%;
 position: relative;
+z-index: -1;
 `
 
 export const BannerIMG = styled.img`
