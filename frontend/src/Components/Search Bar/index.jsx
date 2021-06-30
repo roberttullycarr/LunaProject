@@ -8,8 +8,9 @@ height: 50px;
 margin-top: 71px;
 display: flex;
 align-items: center;
-border-top: 1px solid ${props => props.theme.DetailsGrey};
+// border-top: 1px solid ${props => props.theme.DetailsGrey};
 border-bottom: 1px solid ${props => props.theme.DetailsGrey};
+background-color: ${props => props.theme.backgroundWhite};
 `
 
 const SearchInput = styled(BaseInput)`
