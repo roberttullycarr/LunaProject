@@ -3,6 +3,7 @@ import styled from "styled-components";
 const Main = styled.div`
   display: flex;
   height: auto;
+  min-height: 100%;
   width: 100%;
   flex-direction: column;
   align-items: center;
@@ -10,3 +11,7 @@ const Main = styled.div`
 `;
 
 export default Main;
+
+export const Body = styled.div`
+min-height: 50%;
+`

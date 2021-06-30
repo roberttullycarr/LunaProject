@@ -1,6 +1,7 @@
 const initialState = {
     token: null,
     restaurants: [],
+    userData: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -10,6 +11,8 @@ const reducer = (state = initialState, action) => {
              return {...state, token: action.payload};
          case 'RESTAURANTS':
              return {...state, restaurants: action.payload};
+         case 'USER_DATA':
+             return {...state, userData: action.payload};
          default:
              return state;
      }
