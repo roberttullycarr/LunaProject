@@ -1,17 +1,22 @@
+import random
+
 from django.db.models import Q
-from rest_framework import status
+from django.core.mail import send_mail
+from rest_framework import filters
 from rest_framework.generics import GenericAPIView, ListAPIView
 from rest_framework.response import Response
-from django.core.mail import send_mail
+
 from .models import User
 from .serializer import UserProfileSerializerPrivate, UserProfileSerializerPublic
 from reg_profile.models import RegProfile
-from reg_profile.serializer import RegProfileSerializer
 from rest_framework.permissions import AllowAny
-import random
 
 
 class CreateUser(GenericAPIView):
+    """
+    post:
+    Create a new user.
+    """
     queryset = User.objects.all()
     serializer_class = UserProfileSerializerPrivate
     permission_classes = [AllowAny]
@@ -27,21 +32,105 @@ class CreateUser(GenericAPIView):
             return Response(data={"error": "Wrong code, try again."}, status=404)
 
 
-class ListAllUsers(GenericAPIView):
+class ListAllUsers(ListAPIView):
+    """
+    get:
+    List all user.
+    """
+    queryset = User.objects.all()
+    serializer_class = UserProfileSerializerPublic
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['username', 'first_name', 'last_name']
+
+
+class ListUpdateCurrentUser(GenericAPIView):
+    """
+    get:
+    List current/loged in user.
+    post:
+    Update current/loged in user..
+    """
     queryset = User.objects.all()
     serializer_class = UserProfileSerializerPrivate
 
     def get(self, request, *args, **kwargs):
-        queryset = self.get_queryset()
-        serializer = self.get_serializer(queryset, many=True)
+        queryset = User.objects.get(pk=request.user.id)
+        serializer = self.get_serializer(queryset)
+        return Response(serializer.data)
+
+    def patch(self, request, *args, **kwargs):
+        queryset = self.get_queryset().get(pk=request.user.id)
+        serializer = self.get_serializer(queryset, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
         return Response(serializer.data)
 
 
-class ListCurrentUser(GenericAPIView):
+class SingleUser(GenericAPIView):
+    """
+    get:
+    List single user.
+    """
     queryset = User.objects.all()
-    serializer_class = UserProfileSerializerPrivate
+    serializer_class = UserProfileSerializerPublic
+    lookup_url_kwarg = 'user_id'
 
     def get(self, request, *args, **kwargs):
-        queryset = self.get_queryset()
-        serializer = self.get_serializer(queryset, many=True)
+        queryset = self.get_object()
+        serializer = self.get_serializer(queryset)
         return Response(serializer.data)
+
+
+# snippet to generate random code
+def code_generator(length=5):
+    numbers = '0123456789'
+    return ''.join(random.choice(numbers) for _ in range(length))
+
+
+class ResetPassword(GenericAPIView):
+    """
+    post:
+    Reset password of user. Send a new code to email
+    """
+    serializer_class = UserProfileSerializerPublic
+    permission_classes = [AllowAny]
+
+    def post(self, request, *args, **kwargs):
+        if 'email' in request.data:
+            queryset = User.objects.filter(email=request.data['email'])
+            if queryset:
+                reset_pw_code = code_generator()
+                email = request.data['email']
+                queryset.update(code=reset_pw_code)
+                send_mail(
+                    'REST PASSWORD code for Luna',
+                    f'{reset_pw_code}',
+                    'luna.project.capricorn@gmail.com',
+                    [f'{email}'],
+                    fail_silently=False,
+                )
+                return Response(self.get_serializer().data)
+            else:
+                return Response(data={"error": "Wrong email, try again."}, status=404)
+        else:
+            return Response(data={"error": "No email, try again."}, status=404)
+
+
+class ValidateNewPassword(GenericAPIView):
+    """
+    post:
+    Validate the sent code and change the password.
+    """
+    serializer_class = UserProfileSerializerPrivate
+    permission_classes = [AllowAny]
+
+    def post(self, request, *args, **kwargs):
+        if 'code' in request.data and 'password' in request.data:
+            queryset = User.objects.filter(code=request.data['code'])
+            if queryset:
+                queryset.update(password=request.data['password'])
+                return Response(self.get_serializer().data)
+            else:
+                return Response(data={"error": "Wrong code, try again."}, status=404)
+        else:
+            return Response(data={"error": "No code or no password, try again."}, status=404)

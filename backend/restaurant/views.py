@@ -2,6 +2,7 @@ from rest_framework.generics import ListAPIView, ListCreateAPIView, RetrieveUpda
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from restaurant.models import Restaurant
 from restaurant.serializer import RestaurantSerializer
+from rest_framework import filters
 
 
 class ListRestaurant(ListAPIView):
@@ -11,6 +12,8 @@ class ListRestaurant(ListAPIView):
     """
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['name', 'category']
     permission_classes = [AllowAny]
 
 
