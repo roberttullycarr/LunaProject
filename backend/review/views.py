@@ -56,8 +56,6 @@ class CreateDeleteLike(GenericAPIView):
     serializer_class = ReviewSerializer
     lookup_url_kwarg = 'review_id'
 
-    # permission_classes = []
-
     def post(self, request, *args, **kwargs):
         review = self.get_object()
         user = request.user
@@ -73,8 +71,8 @@ class CreateDeleteLike(GenericAPIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-class ListLikedView(GenericAPIView):  # tested
-    queryset = Review.objects.all().order_by("review").reverse()
+class ListLikedView(GenericAPIView):
+    queryset = Review.objects.all()
     serializer_class = ReviewSerializer
 
     def get(self, request):
@@ -83,11 +81,11 @@ class ListLikedView(GenericAPIView):  # tested
         return Response(serializer.data)
 
 
-class ListCommentedView(GenericAPIView):  # need test
-    queryset = Review.objects.all().order_by("review").reverse()  # review_user
+class ListCommentedView(GenericAPIView):
+    queryset = Review.objects.all()
     serializer_class = ReviewSerializer
 
     def get(self, request):
-        queryset = self.get_queryset().filter(comments=request.user)
+        queryset = self.get_queryset().filter(comment_review__user=request.user)
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
