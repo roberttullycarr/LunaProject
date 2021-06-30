@@ -75,7 +75,6 @@ const MenuBar = () => {
     const history = useHistory();
     const location = useLocation();
     const dispatch = useDispatch()
-    const userID = useSelector(state => state.userData.id);
 
     useEffect(() => {
         dispatch(fetchUserProfileData)
