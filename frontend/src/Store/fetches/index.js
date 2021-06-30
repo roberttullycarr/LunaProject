@@ -9,3 +9,13 @@ export const fetchRestaurants = async dispatch => {
     console.log(response);
     dispatch({type: 'RESTAURANTS', payload: response.data});
 };
+
+export const fetchUserProfileData = async dispatch => {
+    const config = {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+    };
+    // fetch user's data
+    const url = 'me/';
+    const response = await Axios.get(url, config);
+    dispatch({ type: 'USER_DATA', payload: response.data[0]});
+};

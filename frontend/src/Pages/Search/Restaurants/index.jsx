@@ -8,6 +8,7 @@ import {fetchRestaurants} from "../../../Store/fetches";
 import {useDispatch, useSelector} from 'react-redux';
 import Masonry from "react-masonry-css";
 import "./styles.css"
+import SearchFilter, {SearchFilterMain} from "../../../Components/SearchFilter";
 
 const Restaurants = () => {
     const dispatch = useDispatch();
@@ -21,17 +22,18 @@ const Restaurants = () => {
         <Main>
             <MenuBar/>
             <SearchBar/>
+            <SearchFilter/>
             <Masonry
-          breakpointCols={4}
-          className="my-masonry-grid"
-          columnClassName="my-masonry-grid_column"
-        >
-          {restaurants.length > 0 ? restaurants.map((restaurant) => {
-            return (
-              <RestaurantTile data={restaurant}/>
-            );
-          }) : null}
-        </Masonry>
+                  breakpointCols={4}
+                  className="my-masonry-grid"
+                  columnClassName="my-masonry-grid_column"
+                >
+                  {restaurants.length > 0 ? restaurants.map((restaurant) => {
+                    return (
+                      <RestaurantTile data={restaurant}/>
+                    );
+                  }) : null}
+            </Masonry>
             <Footer/>
         </Main>
     )
