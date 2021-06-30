@@ -1,3 +1,4 @@
+from django.core.mail import send_mail
 from rest_framework.generics import ListAPIView, ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from restaurant.models import Restaurant
@@ -19,13 +20,20 @@ class ListCreateRestaurant(ListCreateAPIView):
     get:
     List all Restaurant.
     post:
-    Create a new Restaurant.
+    Create a new Restaurant.Send a created restaurant to email
     """
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
 
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user)
+        send_mail(
+            'New restaurant user just created',
+            f'Congratulations! You have just created the {serializer.data["name"]} restaurant!',
+            'luna.project.capricorn@gmail.com',
+            [f'{self.request.user.email}'],
+            fail_silently=False,
+        )
 
 
 class ListRestaurantsCategory(ListAPIView):
