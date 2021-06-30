@@ -1,6 +1,6 @@
 from rest_framework import status
 from rest_framework.response import Response
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, ListAPIView
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, ListAPIView, GenericAPIView
 from rest_framework.permissions import IsAuthenticated
 from review.models import Review
 from comment.permissions import ObjNotLoggedInUser
@@ -55,3 +55,25 @@ class ReadUpdateDeleteComment(RetrieveUpdateDestroyAPIView):
     serializer_class = CommentSerializer
     lookup_url_kwarg = 'comment_id>'
     permission_classes = [ObjNotLoggedInUser]
+
+
+class CreateLike(GenericAPIView):
+    """
+    post:
+    Like Comment for logged-in User.
+    """
+    serializer_class = CommentSerializer
+    queryset = Comment.objects.all()
+    lookup_url_kwarg = 'comment_id'
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, post_id):
+
+        comment_to_save = self.get_object()
+        user = request.user
+        if comment_to_save in user.liked_comments.all():
+            user.liked_comments.remove(comment_to_save)
+            return Response(self.get_serializer(instance=comment_to_save).data)
+        user.liked_comments.add(comment_to_save)
+        return Response(self.get_serializer(instance=comment_to_save).data)
+

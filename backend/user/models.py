@@ -1,6 +1,8 @@
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import RegexValidator
 from django.db import models
+
+from comment.models import Comment
 from reg_profile.models import RegProfile
 from settings import settings
 
@@ -13,24 +15,18 @@ class User(AbstractUser):
     REQUIRED_FIELDS = ['username']
 
     email = models.EmailField(unique=True)
-
     username = models.CharField(unique=True, verbose_name='username', max_length=200)
-
     location = models.CharField(verbose_name='location', max_length=40, blank=True)
-
     phone = models.CharField(validators=[phone_regex], max_length=17, blank=True)
-
     things_i_love = models.CharField(verbose_name='things_i_love', max_length=200, blank=True)
-
     description = models.CharField(verbose_name='description', max_length=400, blank=True)
-
     profile_picture = models.ImageField(upload_to='user_media', blank=True, null=True)
-
     code = models.CharField(max_length=60, blank=True, null=True)
-
     activated = models.BooleanField(default=False)
-
-    reg_profile = models.ForeignKey(to=RegProfile, related_name="review_user", on_delete=models.CASCADE, blank=True, null=True)
+    reg_profile = models.ForeignKey(to=RegProfile, related_name="review_user", on_delete=models.CASCADE, blank=True,
+                                    null=True)
+    liked_comments = models.ManyToManyField(verbose_name='liked_comments', to=Comment, related_name='liked_by',
+                                            blank=True)
 
     def __str__(self):
         return self.username
