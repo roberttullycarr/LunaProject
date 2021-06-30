@@ -29,7 +29,7 @@ border: none;
 width: 250px;
 height: 32px;
 color: #FFFFFF;
-background-color: ${(props) => props.theme.DetailsGrey};
+background-color: ${(props) => props.theme.DetailsLightGrey};
 font-size: ${(props) => props.theme.textSizeDefault};
 flex-shrink: 0;
 :hover {

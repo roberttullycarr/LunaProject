@@ -38,6 +38,7 @@ export const defaultTheme = {
   textSizeL: "30px",
   textSizeM: "20px",
   textSizeSecondTitle: "24px",
+  textSizeStandardInput: "22px",
   textSizePostName: "18px",
   textSizeDefault: "16px",
   textSizeS: "14px",
