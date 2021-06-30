@@ -9,8 +9,10 @@ import { v4 as uuidv4 } from 'uuid';
 const FooterMain = styled.div`
 width: 100%;
 height: 88px;
-
+max-height: 88px;
 background-color: #FFFFFF;
+// position: fixed;
+// bottom: 0;
 `
 
 const FooterTop = styled.div`
