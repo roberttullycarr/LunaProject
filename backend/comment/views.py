@@ -71,9 +71,9 @@ class CreateLike(GenericAPIView):
 
         comment_to_save = self.get_object()
         user = request.user
-        if comment_to_save in user.liked_comments.all():
-            user.liked_comments.remove(comment_to_save)
+        if comment_to_save in user.comment_likes.all():
+            user.comment_likes.remove(comment_to_save)
             return Response(self.get_serializer(instance=comment_to_save).data)
-        user.liked_comments.add(comment_to_save)
+        user.comment_likes.add(comment_to_save)
         return Response(self.get_serializer(instance=comment_to_save).data)
 

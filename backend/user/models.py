@@ -1,10 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import RegexValidator
 from django.db import models
-
-from comment.models import Comment
 from reg_profile.models import RegProfile
-from settings import settings
 
 
 class User(AbstractUser):
@@ -25,8 +22,6 @@ class User(AbstractUser):
     activated = models.BooleanField(default=False)
     reg_profile = models.ForeignKey(to=RegProfile, related_name="review_user", on_delete=models.CASCADE, blank=True,
                                     null=True)
-    liked_comments = models.ManyToManyField(verbose_name='liked_comments', to=Comment, related_name='liked_by',
-                                            blank=True)
 
     def __str__(self):
         return self.username

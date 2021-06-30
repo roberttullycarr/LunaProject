@@ -5,13 +5,18 @@ from comment.models import Comment
 
 class CommentSerializer(serializers.ModelSerializer):
     user = UserProfileSerializerPublic(read_only=True)
-    logged_in_user_liked = serializers.SerializerMethodField()
+    amount_of_likes = serializers.SerializerMethodField()
+    # logged_in_user_liked = serializers.SerializerMethodField()
 
-    def get_logged_in_user_liked(self, comment):
-        user = self.context['request'].user
-        if comment in user.liked_comments.all():
-            return True
-        return False
+    # def get_logged_in_user_liked(self, comment):
+    #     user = self.context['request'].user
+    #     if comment in user.liked_comments.all():
+    #         return True
+    #     return False
+
+    @staticmethod
+    def get_amount_of_likes(user):
+        return user.comment_likes.all().count()
 
     class Meta:
         model = Comment
