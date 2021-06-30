@@ -28,6 +28,7 @@ jwt_views = [
 
 api_patterns = [
     path('restaurants/', include('restaurant.urls')),
+    path('review/comment/', include('comment.urls')),
     path('auth/token/', include(jwt_views)),
     path('reviews/', include('review.urls')),
     path('', include('user.urls')),
