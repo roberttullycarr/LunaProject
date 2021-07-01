@@ -27,7 +27,7 @@ class ListCreateRestaurant(ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user)
         send_mail(
-            'New restaurant user just created',
+            'You have just created a new restaurant!',
             f'Congratulations! You have just created the {serializer.data["name"]} restaurant!',
             'luna.project.capricorn@gmail.com',
             [f'{self.request.user.email}'],
@@ -81,7 +81,7 @@ class RetrieveUpdateDestroyRestaurant(RetrieveUpdateDestroyAPIView):
     def perform_update(self, serializer):
         serializer.save()
         send_mail(
-            'Send an email when user updates the restaurant that created',
+            'You have just updated the restaurant!',
             f'You have successfully updated the {serializer.data["name"]} restaurant!',
             'luna.project.capricorn@gmail.com',
             [f'{self.request.user.email}'],

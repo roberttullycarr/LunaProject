@@ -38,7 +38,7 @@ class ListCreateComment(ListCreateAPIView):
         serializer.save(user=self.request.user, review=review)
 
         send_mail(
-            'Send an email to the user if someone writes a comment on his review',
+            'Someone just commented on your review!',
             f'Your review just got a comment from {self.request.user.username}!',
             'luna.project.capricorn@gmail.com',
             [f'{review.user.email}'],
