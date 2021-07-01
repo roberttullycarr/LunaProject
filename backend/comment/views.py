@@ -1,3 +1,4 @@
+from django.core.mail import send_mail
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, ListAPIView, UpdateAPIView
@@ -36,6 +37,13 @@ class ListCreateComment(ListCreateAPIView):
         review = Review.objects.get(id=self.kwargs["review_id"])
         serializer.save(user=self.request.user, review=review)
 
+        send_mail(
+            'Someone just commented on your review!',
+            f'Your review just got a comment from {self.request.user.username}!',
+            'luna.project.capricorn@gmail.com',
+            [f'{review.user.email}'],
+            fail_silently=False,
+        )
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 

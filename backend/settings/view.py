@@ -12,9 +12,9 @@ from user.serializer import UserProfileSerializerPublic
 """
     get:
     General search for restaurant, user, and review using 
-    type: "restaurant", "user" and "review"
+    type: "restaurants", "users" and "reviews"
     and 
-    search_string by each(restaurant, user, and review) search field keys
+    search_string by each(restaurants, users, and reviews) search field keys
 """
 
 
