@@ -39,16 +39,14 @@ class ListAllUsers(ListAPIView):
     """
     queryset = User.objects.all()
     serializer_class = UserProfileSerializerPublic
-    filter_backends = [filters.SearchFilter]
-    search_fields = ['username', 'first_name', 'last_name']
 
 
 class ListUpdateCurrentUser(GenericAPIView):
     """
     get:
-    List current/loged in user.
+    List current/logged in user.
     post:
-    Update current/loged in user..
+    Update current/logged in user. Send en email for each profile update to the user.
     """
     queryset = User.objects.all()
     serializer_class = UserProfileSerializerPrivate
@@ -63,6 +61,13 @@ class ListUpdateCurrentUser(GenericAPIView):
         serializer = self.get_serializer(queryset, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
+        send_mail(
+            'Send an email when the user updates the profile',
+            f'You have successfully updated your profile!',
+            'luna.project.capricorn@gmail.com',
+            [f'{self.request.user.email}'],
+            fail_silently=False,
+        )
         return Response(serializer.data)
 
 
