@@ -8,7 +8,7 @@ import {fetchRestaurants} from "../../../Store/fetches";
 import {useDispatch, useSelector} from 'react-redux';
 import Masonry from "react-masonry-css";
 import "./styles.css"
-import SearchFilter, {SearchFilterMain} from "../../../Components/SearchFilter";
+import SearchFilter from "../../../Components/SearchFilter";
 
 const Restaurants = () => {
     const dispatch = useDispatch();

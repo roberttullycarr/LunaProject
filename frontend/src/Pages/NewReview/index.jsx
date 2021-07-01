@@ -1,13 +1,11 @@
 import Main from "../../Components/Generic/Main";
 import MenuBar from "../../Components/Menu Bar";
-import SearchBar from "../../Components/Search Bar";
 import Footer from "../../Components/Footer";
 import styled from "styled-components";
 import RestaurantHeader from "../../Components/RestaurantHeader";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
-import {fetchReviewsByRestaurant, fetchSingleRestaurant} from "../../Store/fetches";
-import {BaseInput} from "../../Components/Generic/Fields";
+import {fetchSingleRestaurant} from "../../Store/fetches";
 import {Button} from "../../Components/Generic/Buttons";
 import Axios from "../../Store/Axios";
 
@@ -89,9 +87,6 @@ const NewReview = () => {
         dispatch(fetchSingleRestaurant);
     }, [])
 
-
-    console.log(restaurant)
-
     const placeholderText = "Your review helps others learn about great local businesses. \n" +
         "\n" +
         "Please don't review this business if you received a freebie for writing this review, or if you're connected in any way to the owner or employees."
@@ -100,7 +95,6 @@ const NewReview = () => {
     const onTextChange = (event) => {
         setText(event.target.value);
     };
-
 
     const onSubmitHandler = async (event) => {
         event.preventDefault();

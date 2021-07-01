@@ -20,6 +20,15 @@ export const fetchUserProfileData = async dispatch => {
     dispatch({ type: 'USER_DATA', payload: response.data[0]});
 };
 
+export const fetchSingleUser = userId  => async dispatch => {
+    const config = {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+    };
+    const url = `users/${userId}/`;
+    const response = await Axios.get(url, config);
+    dispatch({type: 'SINGLEUSER', payload: response.data});
+};
+
 export const fetchSingleRestaurant = async dispatch => {
     const config = {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
@@ -32,4 +41,18 @@ export const fetchSingleRestaurant = async dispatch => {
     const url = `restaurants/${match}/`;
     const response = await Axios.get(url, config);
     dispatch({type: 'SINGLERESTAURANT', payload: response.data});
+};
+
+export const fetchReviewsOfRestaurant = async dispatch => {
+    const config = {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+    };
+    // gets the url-ending from the window object
+    const path = window.location.pathname
+    // matches the url-ending for a number sequence
+    const match = path.match(/(\d+)/)[0]
+
+    const url = `reviews/restaurant/${match}/`;
+    const response = await Axios.get(url, config);
+    dispatch({type: 'REVIEWSOFRESTAURANT', payload: response.data});
 };

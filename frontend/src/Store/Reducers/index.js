@@ -3,7 +3,8 @@ const initialState = {
     restaurants: [],
     userData: [],
     singleRestaurant: [],
-    reviewsByRestaurant: [],
+    reviewsOfRestaurant: [],
+    singleUser: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -14,8 +15,12 @@ const reducer = (state = initialState, action) => {
              return {...state, restaurants: action.payload};
          case 'USER_DATA':
              return {...state, userData: action.payload};
+         case 'SINGLEUSER':
+             return {...state, singleUser: action.payload};
          case 'SINGLERESTAURANT':
              return {...state, singleRestaurant: action.payload};
+         case 'REVIEWSOFRESTAURANT':
+             return {...state, reviewsOfRestaurant: action.payload};
          default:
              return state;
      }

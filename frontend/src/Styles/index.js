@@ -31,6 +31,7 @@ export const defaultTheme = {
   RestaurantGrey: "#F5F5F5",
   textareaBorder: "#E3E3E3",
   placeholderColor: "#BBB7B7",
+  splitButtonRestColor: "#91919199",
 
   // Linear Gradients
 

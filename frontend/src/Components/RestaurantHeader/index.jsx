@@ -45,7 +45,20 @@ object-fit: cover;
 object-position: center top;
 `
 
+const Rating = styled.div`
+display: flex;
+margin-top: 14px;
+`
 
+const Stars = styled.div`
+
+`
+
+const ReviewsAmount = styled.p`
+margin-left: 30px;
+font-size: ${props => props.theme.textSizeM};
+font-weight: ${props => props.theme.textWeightThin};
+`
 
 const RestaurantHeader = ({ data }) => {
 
@@ -59,6 +72,10 @@ const RestaurantHeader = ({ data }) => {
                 <Category>
                     {data.category}
                 </Category>
+                <Rating>
+                    <Stars>*****</Stars>
+                    <ReviewsAmount>{data['amount_of_reviews_in_restaurant']} reviews</ReviewsAmount>
+                </Rating>
             </RestaurantInfo>
             <RestaurantPicture src={data.image}/>
             <p></p>
