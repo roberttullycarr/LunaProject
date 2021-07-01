@@ -21,8 +21,7 @@ const UserTile = ({ data }) => {
             <TopBorderReview/>
             <UserInfo user={data}/>
             <UserBody>
-                <Text>I am a photographer, filmmaker and web developer living in Antwerp, Belgium.  I live to eat,
-                eat to live, and love to talk about food.</Text>
+                <Text>{data.description}</Text>
             </UserBody>
         </UTMain>
     )

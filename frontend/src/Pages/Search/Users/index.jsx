@@ -15,7 +15,7 @@ const Users = () => {
     const searchResultUsers = useSelector(state => state.searchResultUsers);
 
     const SearchItems = async () => {
-        const url = `users/list/?search=`;
+        const url = `search/?search=&type=users`;
         const config = {
             headers: {"Authorization": `Bearer ${localStorage.getItem('token')}`}
         };

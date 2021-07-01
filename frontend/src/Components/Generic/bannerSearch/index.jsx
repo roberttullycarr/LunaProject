@@ -51,7 +51,7 @@ const BannerSearch = () => {
     const SearchItems = async (e, text) => {
         e.preventDefault();
         console.log('enter pressed');
-        const url = `restaurants/?search=${searchText}`;
+        const url = `search/?search=${searchText}&type=restaurants`;
         const config = {
             headers: { "Authorization": `Bearer ${localStorage.getItem('token')}` }
         };
@@ -60,8 +60,8 @@ const BannerSearch = () => {
             const response = await Axios.get(url, config);
             console.log(response);
             const action = {
-                type: 'SEARCH_RESULTS_REST',
-                payload: response.data
+                type: 'SEARCH_RESULTS_RESTAURANTS',
+                payload: response.data,
             }
             dispatch(action)
             history.push('search/restaurants');

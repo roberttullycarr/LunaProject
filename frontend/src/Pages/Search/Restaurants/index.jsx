@@ -9,6 +9,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import Masonry from "react-masonry-css";
 import "./styles.css"
 import SearchFilter, {SearchFilterMain} from "../../../Components/SearchFilter";
+import { v4 as uuidv4 } from 'uuid';
+
 
 const Restaurants = () => {
     const dispatch = useDispatch();
@@ -33,7 +35,7 @@ const Restaurants = () => {
                 >
                   {searchResultRest.length > 0 ? searchResultRest.map((restaurant) => {
                     return (
-                      <RestaurantTile data={restaurant}/>
+                      <RestaurantTile key={uuidv4()} data={restaurant}/>
                     );
                   }) : null}
             </Masonry>

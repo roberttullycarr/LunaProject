@@ -37,6 +37,11 @@ const RestaurantName = styled.h3`
     color: ${props => props.theme.orange};
     font-weight: ${props => props.theme.textWeightBold};
     margin-bottom: 8px;
+    
+    :hover {
+    cursor: pointer;
+    text-decoration: underline;    
+}
 `;
 
 export const Text = styled.p`
@@ -47,7 +52,7 @@ export const Text = styled.p`
     white-space: wrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-height: 80px;
+    height: 80px;
 `;
 
 const CommentTitle = styled.h3`
@@ -90,18 +95,17 @@ border-radius: 0px 16.5px 16.5px 0px;
 `
 
 
-const Review = () => {
+const Review = ({ data }) => {
     return (
         <Container>
             <TopBorderReview />
-            <UserInfo/>
+            <UserInfo user={data.user}/>
             <ReviewBody>
-                <RestaurantName>Colinz Bar</RestaurantName>
-                <Text>Ugh don't waste your time. Pizza dough good, thin crust but ingredients so so. side of mixed
-                vegetables very oily and mainly bell pepper.  It was not an awesome experience, I would not recoomend it.</Text>
+                <RestaurantName>{data.restaurant_name}</RestaurantName>
+                <Text>{data.text}</Text>
                 <SplitButtonMain>
-                    <LikesButton><img src={thumb}/>{`Like` + ` 23`}</LikesButton>
-                    <CommentButton>Comments 25</CommentButton>
+                    <LikesButton><img src={thumb}/>{`Likes ${data.amount_of_likes_in_review}`}</LikesButton>
+                    <CommentButton>{`Comments ${data.amount_of_comments_in_review}`}</CommentButton>
                 </SplitButtonMain>
                 <CommentTitle>Latest Comments</CommentTitle>
                 <ReviewTileComment author={'Colin Wirz'} text={'Actually you have no taste!'}/>

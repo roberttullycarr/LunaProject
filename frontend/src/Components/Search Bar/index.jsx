@@ -4,7 +4,7 @@ import arrow from "../../Assets/SVG/arrow.svg"
 import {useHistory, useLocation} from "react-router-dom";
 import {useState} from "react";
 import Axios from "../../Store/Axios";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 const SearchMain = styled.div`
 width: 100%;
@@ -65,13 +65,14 @@ const SearchBar = () => {
     const dispatch = useDispatch();
     const [searchText, setSearchText] = useState('');
     const [category, setCategory] = useState('');
+    const header = useSelector(state => state.header);
 
-    console.log("search text", searchText, "category", category);
 
     const SearchItems = async (e, text) => {
         e.preventDefault();
         console.log('enter pressed');
-        const url = `restaurants/?search=${searchText}+${category}`;
+        const url = `search/?search=${searchText}${category !== "" && searchText ? `+${category}` : 
+            `${category}`}&type=${header}`;
         const config = {
             headers: { "Authorization": `Bearer ${localStorage.getItem('token')}` }
         };
@@ -80,7 +81,7 @@ const SearchBar = () => {
             const response = await Axios.get(url, config);
             console.log(response);
             const action = {
-                type: 'SEARCH_RESULTS_REST',
+                type: `SEARCH_RESULTS_${header.toUpperCase()}`,
                 payload: response.data
             }
             dispatch(action)
@@ -109,23 +110,23 @@ const SearchBar = () => {
         <SearchMain>
             <CategoryForm onKeyDown={e => e.key === 'Enter' ? SearchItems(e, searchText) : null} value={searchText}>
                 <SearchInput type={'text'} placeholder={'Search'} onChange={(e) => setSearchText(e.target.value)}/>
-                <CategorySelect id="category" name="category"
+                <CategorySelect id="category" name="category" defaultValue={""}
                                 display={location.pathname === '/search/users' ? 'none' : 'initial'}
                                 onChange={(e) => setCategory(e.target.value)}>
-                    <option value="" selected>Select a Category...</option>
+                    <option value="">Select a Category...</option>
                     <option value="IT">Italian</option>
-                    <option value="IND">Indian</option>
-                    <option value="CN">Chinese</option>
-                    <option value="JP">Japanese</option>
-                    <option value="TH">Thai</option>
-                    <option value="VNZ">Venezuelan</option>
-                    <option value="CH">Swiss</option>
-                    <option value="DE">German</option>
-                    <option value="French">French</option>
-                    <option value="MNG">Mongolian</option>
-                    <option value="GK">Greek</option>
-                    <option value="SP">Spanish</option>
-                    <option value="MEX">Mexican</option>
+                    <option value="+IND">Indian</option>
+                    <option value="+CN">Chinese</option>
+                    <option value="+JP">Japanese</option>
+                    <option value="+TH">Thai</option>
+                    <option value="+VNZ">Venezuelan</option>
+                    <option value="+CH">Swiss</option>
+                    <option value="+DE">German</option>
+                    <option value="+French">French</option>
+                    <option value="+MNG">Mongolian</option>
+                    <option value="+GK">Greek</option>
+                    <option value="+SP">Spanish</option>
+                    <option value="+MEX">Mexican</option>
                 </CategorySelect>
             </CategoryForm>
         </SearchMain>
