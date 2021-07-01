@@ -19,3 +19,13 @@ export const fetchUserProfileData = async dispatch => {
     const response = await Axios.get(url, config);
     dispatch({ type: 'USER_DATA', payload: response.data[0]});
 };
+
+export const searchRestaurants = async dispatch => {
+    const config = {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+    };
+    // fetch user's data
+    const url = 'restaurants/?search=';
+    const response = await Axios.get(url, config);
+    dispatch({ type: 'SEARCH_RESULTS_REST', payload: response.data});
+};

@@ -4,7 +4,7 @@ import SearchBar from "../../../Components/Search Bar";
 import Footer from "../../../Components/Footer";
 import RestaurantTile from "../../../Components/RestaurantTile";
 import {useEffect} from "react";
-import {fetchRestaurants} from "../../../Store/fetches";
+import {fetchRestaurants, searchRestaurants} from "../../../Store/fetches";
 import {useDispatch, useSelector} from 'react-redux';
 import Masonry from "react-masonry-css";
 import "./styles.css"
@@ -12,10 +12,13 @@ import SearchFilter, {SearchFilterMain} from "../../../Components/SearchFilter";
 
 const Restaurants = () => {
     const dispatch = useDispatch();
-    const restaurants = useSelector(state => state.restaurants);
+    const searchResultRest = useSelector(state => state.searchResultRest);
+
 
     useEffect(() => {
-        dispatch(fetchRestaurants);
+        if (searchResultRest.length === 0) {
+            dispatch(searchRestaurants);
+        }
     }, [])
 
     return (
@@ -28,7 +31,7 @@ const Restaurants = () => {
                   className="my-masonry-grid"
                   columnClassName="my-masonry-grid_column"
                 >
-                  {restaurants.length > 0 ? restaurants.map((restaurant) => {
+                  {searchResultRest.length > 0 ? searchResultRest.map((restaurant) => {
                     return (
                       <RestaurantTile data={restaurant}/>
                     );

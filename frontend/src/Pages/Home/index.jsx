@@ -31,11 +31,11 @@ const Homepage = () => {
                   className="my-masonry-grid"
                   columnClassName="my-masonry-grid_column"
                 >
-                  {restaurants.length > 0 ? restaurants.map((restaurant) => {
-                    return (
-                      <RestaurantTile data={restaurant}/>
-                    );
-                  }) : null}
+                  {restaurants.length > 0 ? restaurants.slice(0, 4).map((restaurant) => {
+                        return (
+                            <RestaurantTile data={restaurant}/>
+                        );
+                    }) : null}
             </Masonry>
             <Footer/>
         </Main>

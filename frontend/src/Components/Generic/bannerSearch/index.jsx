@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 import {BaseInput} from "../Fields";
 import {BaseButton} from "../Buttons";
+import {useState} from "react";
+import Axios from "../../../Store/Axios";
+import {useDispatch} from "react-redux";
+import {useHistory} from "react-router-dom";
 
 const BSMainForm = styled.form`
 position: absolute;
@@ -40,10 +44,36 @@ background-color: ${(props) => props.theme.orange};
 `
 
 const BannerSearch = () => {
+    const [searchText, setSearchText] = useState('');
+    const dispatch = useDispatch();
+    const history = useHistory();
+
+    const SearchItems = async (e, text) => {
+        e.preventDefault();
+        console.log('enter pressed');
+        const url = `restaurants/?search=${searchText}`;
+        const config = {
+            headers: { "Authorization": `Bearer ${localStorage.getItem('token')}` }
+        };
+
+        try {
+            const response = await Axios.get(url, config);
+            console.log(response);
+            const action = {
+                type: 'SEARCH_RESULTS_REST',
+                payload: response.data
+            }
+            dispatch(action)
+            history.push('search/restaurants');
+        } catch (e){
+            console.log(e)
+        }
+    }
+
     return (
-        <BSMainForm>
-            <BannerSearchInput placeholder={'Search...'}/>
-            <BannerSearchBtn>Search</BannerSearchBtn>
+        <BSMainForm onKeyDown={e => e.key === 'Enter' ? SearchItems(e, searchText) : null} value={searchText}>
+            <BannerSearchInput placeholder={'Search...'} onChange={(e) => setSearchText(e.target.value)}/>
+            <BannerSearchBtn onClick={(e) => SearchItems(e, searchText)}>Search</BannerSearchBtn>
         </BSMainForm>
     )
 }
