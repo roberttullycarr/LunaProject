@@ -7,7 +7,6 @@ from restaurant.models import Restaurant
 from review.models import Review
 from review.serializer import ReviewSerializer
 
-
 """
     post: 
     Create new review    
@@ -96,13 +95,13 @@ class CreateDeleteLike(GenericAPIView):
         user = request.user
         if review not in user.review_likes.all():
             user.review_likes.add(review)
-            #send_mail(
-            #   'Send an email to the user if one of his reviews gets liked',
-             #   f'You just get liked by {someone}, of the {reviewtitle}   !',
-             #   'luna.project.capricorn@gmail.com',
-              #  [f'{self.request.user.email}'],
-               # fail_silently=False,
-            #)
+            send_mail(
+               'Send an email to the user if one of his reviews gets liked',
+               f'You just get liked by {user.username}, for your comment {review}!',
+               'luna.project.capricorn@gmail.com',
+                [f'{review.user.email}'],
+                fail_silently=False,
+             )
 
         return Response(status=status.HTTP_201_CREATED)
 
