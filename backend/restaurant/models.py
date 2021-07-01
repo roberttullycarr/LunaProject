@@ -20,7 +20,9 @@ class Restaurant(models.Model):
         ('MNG', 'Mongolian'),
         ('GK', 'Greek'),
         ('SP', 'Spanish'),
-        ('MEX', 'Mexican')
+        ('MEX', 'Mexican'),
+        ('PT', 'Portugal'),
+        ('BE', 'Belgium')
     )
 
     PRICELEVEL = (

@@ -14,7 +14,7 @@ class Review(models.Model):
         MaxValueValidator(5)
     ])
 
-    restaurant = models.ForeignKey(to=Restaurant, related_name="restaurant", on_delete=models.CASCADE)
+    restaurant = models.ForeignKey(to=Restaurant, related_name="review_restaurant", on_delete=models.CASCADE)
 
     created = models.DateTimeField(auto_now_add=True)
 
