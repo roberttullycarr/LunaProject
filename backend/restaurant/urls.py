@@ -1,6 +1,6 @@
 from django.urls import path
 from restaurant.views import ListCreateRestaurant, RetrieveUpdateDestroyRestaurant, ListRestaurantsUser, \
-    ListRestaurantsCategory, ListRestaurant
+    ListRestaurantsCategory, ListRestaurant, ListCountryRestaurant
 
 
 urlpatterns = [
@@ -10,4 +10,6 @@ urlpatterns = [
     path('category/<str:category_code>/', ListRestaurantsCategory.as_view(), name='list-restaurant-category'),
     path('user/<int:user_id>/', ListRestaurantsUser.as_view(), name='list-restaurant-user'),
     path("<int:id>/", RetrieveUpdateDestroyRestaurant.as_view(), name="get-destroy-update-restaurant"),
+    path("countries/", ListCountryRestaurant.as_view(), name="get-countries"),
 ]
+
