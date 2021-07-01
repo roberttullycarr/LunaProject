@@ -96,7 +96,7 @@ class CreateDeleteLike(GenericAPIView):
         if review not in user.review_likes.all():
             user.review_likes.add(review)
             send_mail(
-               'Send an email to the user if one of his reviews gets liked',
+               'Someone just liked your comment!',
                f'You just get liked by {user.username}, for your comment {review}!',
                'luna.project.capricorn@gmail.com',
                 [f'{review.user.email}'],

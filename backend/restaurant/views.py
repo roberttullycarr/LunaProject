@@ -81,7 +81,7 @@ class RetrieveUpdateDestroyRestaurant(RetrieveUpdateDestroyAPIView):
     def perform_update(self, serializer):
         serializer.save()
         send_mail(
-            'Send an email when user updates the restaurant that created',
+            'You just updated the restaurant!',
             f'You have successfully updated the {serializer.data["name"]} restaurant!',
             'luna.project.capricorn@gmail.com',
             [f'{self.request.user.email}'],
