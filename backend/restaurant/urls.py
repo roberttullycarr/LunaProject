@@ -12,3 +12,4 @@ urlpatterns = [
     path("<int:id>/", RetrieveUpdateDestroyRestaurant.as_view(), name="get-destroy-update-restaurant"),
     path("countries/", ListCountryRestaurant.as_view(), name="get-countries"),
 ]
+

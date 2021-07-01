@@ -84,3 +84,16 @@ class CreateLike(UpdateAPIView):
         comment_to_save.likes.add(user)
         return Response(self.get_serializer(comment_to_save).data)
 
+
+class ListTwoComments(ListAPIView):
+    """
+    get:
+    List two recent comments in a review.
+    """
+
+    serializer_class = CommentSerializer
+    lookup_url_kwarg = 'review_id'
+
+    def get_queryset(self):
+        review_id = self.kwargs.get("review_id")
+        return Comment.objects.filter(review__id=review_id).order_by("-created")[:2]
