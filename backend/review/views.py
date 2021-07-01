@@ -1,26 +1,11 @@
-from rest_framework import status, filters
+from django.core.mail import send_mail
+from rest_framework import status
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, GenericAPIView, \
     ListAPIView
-from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from restaurant.models import Restaurant
 from review.models import Review
 from review.serializer import ReviewSerializer
-
-
-"""
-    get:
-    Search reviews of the review   
-"""
-
-
-class SearchReview(ListAPIView):
-
-    queryset = Review.objects.all()
-    serializer_class = ReviewSerializer
-    filter_backends = [filters.SearchFilter]
-    search_fields = ['text']
-    permission_classes = [AllowAny]
 
 
 """
@@ -79,11 +64,11 @@ class SingleUserReviews(ListAPIView):
 
 """
     get: 
-    Get review by ID and display all the information of logged in owner  
+    Get review by ID and display all the information of logged in user  
     patch: 
-    Update a chosen review by the owner
+    Update a chosen review by the user
     delete: 
-    Delete a chosen review by the owner   
+    Delete a chosen review by the user   
 """
 
 
@@ -91,12 +76,11 @@ class ReadUpdateDeleteReview(RetrieveUpdateDestroyAPIView):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
     lookup_url_kwarg = 'review_id'
-    # permission_classes = []
 
 
 """
     post: 
-    Like the review
+    Like the review. Send an email to user per like.
     delete: 
     Unlike the review      
 """
@@ -112,6 +96,14 @@ class CreateDeleteLike(GenericAPIView):
         user = request.user
         if review not in user.review_likes.all():
             user.review_likes.add(review)
+            #send_mail(
+            #   'Send an email to the user if one of his reviews gets liked',
+             #   f'You just get liked by {someone}, of the {reviewtitle}   !',
+             #   'luna.project.capricorn@gmail.com',
+              #  [f'{self.request.user.email}'],
+               # fail_silently=False,
+            #)
+
         return Response(status=status.HTTP_201_CREATED)
 
     def delete(self, request, *args, **kwargs):

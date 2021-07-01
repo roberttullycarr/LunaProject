@@ -19,6 +19,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework_simplejwt import views as jwt_views
 
+from settings.view import SearchReviewRestaurantUser
 
 jwt_views = [
     # Your URLs...
@@ -33,6 +34,7 @@ api_patterns = [
     path('review/comment/', include('comment.urls')),
     path('auth/token/', include(jwt_views)),
     path('reviews/', include('review.urls')),
+    path('search/', SearchReviewRestaurantUser.as_view()),
     path('', include('user.urls')),
     path('auth/registration/', include('reg_profile.urls')),
 ]
