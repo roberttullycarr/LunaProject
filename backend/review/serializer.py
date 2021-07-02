@@ -1,4 +1,6 @@
 from rest_framework import serializers
+
+from comment.serializer import CommentSerializer
 from review.models import Review
 from user.serializer import UserProfileSerializerPublic
 
@@ -23,9 +25,11 @@ class ReviewSerializer(serializers.ModelSerializer):
 
     @staticmethod
     def get_two_recent_comments(instance):
-        return instance.comment_review.values().order_by('-created')[:2]
+        # return instance.comment_review.values().order_by('-created')[:2]
+        return CommentSerializer(instance.comment_review.all().order_by('-created')[:2], many=True).data
 
     class Meta:
         model = Review
         fields = ['user', 'text', 'rating', 'restaurant', 'restaurant_name', 'created', 'modified',
-                  'amount_of_comments_in_review', 'amount_of_likes_in_review', 'likes', 'two_recent_comments', 'id']
+                  'amount_of_comments_in_review', 'amount_of_likes_in_review', 'likes',
+                  'two_recent_comments']

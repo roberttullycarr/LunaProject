@@ -59,7 +59,7 @@ class ListUpdateCurrentUser(GenericAPIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         send_mail(
-            'Send an email when the user updates the profile',
+            'Profile update status',
             f'You have successfully updated your profile!',
             'luna.project.capricorn@gmail.com',
             [f'{self.request.user.email}'],
