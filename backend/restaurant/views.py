@@ -1,8 +1,8 @@
 from django.core.mail import send_mail
 from rest_framework.generics import ListAPIView, ListCreateAPIView, RetrieveUpdateDestroyAPIView
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from restaurant.models import Restaurant
-from restaurant.serializer import RestaurantSerializer, CountrySerializer
+from restaurant.serializer import RestaurantSerializer, CountrySerializer, RatingsSerializer
 
 
 class ListRestaurant(ListAPIView):
@@ -12,6 +12,7 @@ class ListRestaurant(ListAPIView):
     """
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
+    permission_classes = [AllowAny]
 
 
 class ListCreateRestaurant(ListCreateAPIView):
@@ -27,7 +28,7 @@ class ListCreateRestaurant(ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user)
         send_mail(
-            'You have just created a new restaurant!',
+            'New restaurant user just created',
             f'Congratulations! You have just created the {serializer.data["name"]} restaurant!',
             'luna.project.capricorn@gmail.com',
             [f'{self.request.user.email}'],
@@ -81,7 +82,7 @@ class RetrieveUpdateDestroyRestaurant(RetrieveUpdateDestroyAPIView):
     def perform_update(self, serializer):
         serializer.save()
         send_mail(
-            'You have just updated the restaurant!',
+            'Send an email when user updates the restaurant that created',
             f'You have successfully updated the {serializer.data["name"]} restaurant!',
             'luna.project.capricorn@gmail.com',
             [f'{self.request.user.email}'],
@@ -100,3 +101,15 @@ class ListCountryRestaurant(ListAPIView):
     def get_queryset(self):
         result_id = Restaurant.objects.values()[0]['id']
         return Restaurant.objects.filter(id=result_id)
+
+
+class ListFourBestRestaurants(ListAPIView):
+    """
+    get:
+    List four best restaurants.
+    """
+
+    serializer_class = RestaurantSerializer
+
+    def get_queryset(self):
+        return sorted(Restaurant.objects.all(), key=lambda restaurant: restaurant.average_rating, reverse=True)[:4]
