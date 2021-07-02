@@ -16,6 +16,7 @@ top: 0;
 z-index: 1;
 border-bottom: 1px solid ${props => props.theme.DetailsGrey};
 background-color: ${props => props.theme.backgroundWhite};
+z-index: 2;
 `
 
 const Logo = styled.img`
@@ -90,6 +91,10 @@ const MenuBar = () => {
         else {
             history.push('/signin');
         }
+    }
+
+    const GoToProfile = () => {
+        history.push('/user/me');
     }
 
     return (
