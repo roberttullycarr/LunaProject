@@ -1,20 +1,20 @@
 import Main from "../../Components/Generic/Main";
 import MenuBar from "../../Components/Menu Bar";
-import SearchBar from "../../Components/Search Bar";
 import Footer from "../../Components/Footer";
 import styled from "styled-components";
 import { BaseInput } from "../../Components/Generic/Fields/index.js";
 import { Wrapper } from "../../Components/Generic/PageWrapper";
-import { BaseButton } from "../../Components/Generic/Buttons";
+import { Button } from "../../Components/Generic/Buttons";
 import { useRef, useState } from "react";
 import Axios from "../../Store/Axios";
 import { useSelector } from "react-redux";
+import arrow from "../../Assets/SVG/arrow.svg"
 
 const Title = styled.h1`
     color: ${props => props.theme.textDarkGrey};
     font-size: ${props => props.theme.textSizeSecondTitle};
-    margin-top: 3%;
-    margin-bottom: 4%;
+    margin-top: 2%;
+    margin-bottom: 2%;
     padding-bottom: 15px;
     border-bottom: solid 3px ${props => props.theme.orange};
 `;
@@ -25,7 +25,6 @@ const Grid = styled.div`
   grid-gap: 20px;
   margin-top: 30px;
   width: 90%;
-  border: 2px solid green;
 `;
 
 const TextInput = styled(BaseInput)`
@@ -34,29 +33,29 @@ const TextInput = styled(BaseInput)`
     height: 49px;
     font-size: ${props => props.theme.textSizeStandardInput};
     font-weight: ${props => props.theme.textWeightRegular};
-    padding: 23px;
+    padding-left: 23px;
 `;
 
-const SelectInput = styled.select`
+/* const SelectInput = styled.select`
     color: ${props => props.theme.textDarkGrey};
     outline: none;
     height: 52px;
     margin-bottom: 15px;
     border: solid 1px ${props => props.theme.DetailsLightGrey};
-    font-size: ${props => props.theme.textSizeM};
+    font-size: ${props => props.theme.textSizeStandardInput};
     font-weight: ${props => props.theme.textWeightRegular};
+    padding-left: 21px;
 
     ::placeholder {
         color: ${props => props.theme.DetailsGrey};
         font-weight: ${props => props.theme.textWeightRegular};
     }
-`
+` */
 
 const InputWrapper = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    border: solid 1px blue;
 
     h2 {
         font-family: Karla, sans-serif;
@@ -69,6 +68,7 @@ const InputWrapper = styled.div`
         font-size: ${props => props.theme.textSizeM};
         font-weight: ${props => props.theme.textWeightBold};
         color: ${props => props.theme.textGrey};
+        padding-bottom: 4px;
     }
 `
 
@@ -87,6 +87,39 @@ const FileButton = styled.button`
         background-color: ${(props) => props.theme.orange};
 `
 
+const CreateButton = styled(Button)`
+    margin-top: 2%;
+    margin-bottom: 2%;
+`
+
+const CategorySelect = styled.select`
+    background: ${props => props.theme.backgroundWhite};
+    padding: 0px 10%;
+    webkit-appearance: none;
+    moz-appearance: none;
+    appearance: none;
+    background-image: url(${arrow});
+    background-repeat: no-repeat;
+    background-position-x: 90%;
+    background-position-y: 50%;
+    color: ${props => props.theme.textDarkGrey};
+    outline: none;
+    height: 49px;
+    margin-bottom: 15px;
+    border: solid 1px ${props => props.theme.DetailsLightGrey};
+    font-size: ${props => props.theme.textSizeStandardInput};
+    font-weight: ${props => props.theme.textWeightRegular};
+    padding-left: 21px;
+
+    ::placeholder {
+        color: ${props => props.theme.DetailsGrey};
+        font-weight: ${props => props.theme.textWeightRegular};
+    }
+
+    :focus {
+    outline: none;
+    }
+`
 
 const NewRestaurant = () => {
     const token = useSelector((state) => state.token);
@@ -94,11 +127,15 @@ const NewRestaurant = () => {
 
     const OnChangeHandler = (event) => {
         const value = event.target.value;
-        const input = event.target.value;
-        setRestaurantTemplate({...restaurantTemplate, [input] : value });
+        const input = event.target.id;
+        setRestaurantTemplate({...restaurantTemplate, [input]: value });
+    }
+
+    const OnImageChangeHandler = (event) => {
+        setRestaurantTemplate({...restaurantTemplate, ['image']: event.target.files[0] });
     }
     
-    const onAddImage = () => {
+    const onAddImage = (event) => {
         uploadFileButton.current.click();
       };
     const uploadFileButton = useRef();
@@ -119,7 +156,6 @@ const NewRestaurant = () => {
         data.append("opening_hours", restaurantTemplate.opening_hours);
         data.append("price_level", restaurantTemplate.price_level);
         data.append("image", restaurantTemplate.image);
-
         const config = {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -129,84 +165,96 @@ const NewRestaurant = () => {
 
         try {
             await Axios.post(url, data, config);
-          } catch (error) {
+        } catch (error) {
             console.log(error.response);
-          }
+        }
     }
 
     return (
         <Main>
             <MenuBar/>
-            <SearchBar/>
             <Wrapper onSubmit={OnSubmitHandler}>
                 <Title>CREATE NEW RESTAURANT</Title>
                 <Grid>
                     <InputWrapper>
                         <h2>Basic</h2>
                         <h3>Name *</h3>
-                        <TextInput type="text" name="name" onChange={OnChangeHandler} ></TextInput>
+                        <TextInput type="text" id="name" onChange={OnChangeHandler} ></TextInput>
                     </InputWrapper>
                     <InputWrapper>
                         <h3>Category *</h3>
-                        <SelectInput name="category" onChange={OnChangeHandler} >
+                        <CategorySelect id="category" onChange={OnChangeHandler} >
                             <option value="" disabled selected>Select a value...</option>
-                            <option value="dog">Test 1</option>
-                        </SelectInput>
+                            <option value="IT">Italian</option>
+                            <option value="IND">Indian</option>
+                            <option value="CN">Chinese</option>
+                            <option value="dog">Japanese</option>
+                            <option value="TH">Thai</option>
+                            <option value="VNZ">Venezuelan</option>
+                            <option value="CH">Swiss</option>
+                            <option value="DE">German</option>
+                            <option value="FR">French</option>
+                            <option value="MNG">Mongolian</option>
+                            <option value="GK">Greek</option>
+                            <option value="SP">Spanish</option>
+                            <option value="MEX">Mexican</option>
+                        </CategorySelect>
                     </InputWrapper>
                     <InputWrapper>
                         <h3>Country *</h3>
-                        <SelectInput name="country" onChange={OnChangeHandler} >
+                        <CategorySelect id="country" onChange={OnChangeHandler} >
                             <option value="" disabled selected>Select a value...</option>
-                            <option value="dog">Test 1</option>
-                        </SelectInput>
+                            <option value="CH">Switzerland</option>
+                        </CategorySelect>
                     </InputWrapper>
                     <InputWrapper>
                         <h2>Address</h2>
                         <h3>Street *</h3>
-                        <TextInput type="text" name="address" onChange={OnChangeHandler} ></TextInput>
+                        <TextInput type="text" id="street" onChange={OnChangeHandler} ></TextInput>
                     </InputWrapper>
                     <InputWrapper>
                         <h3>City *</h3>
-                        <TextInput type="text" name="city" onChange={OnChangeHandler} ></TextInput>
+                        <TextInput type="text" id="city" onChange={OnChangeHandler} ></TextInput>
                     </InputWrapper>
                     <InputWrapper>
-                        <h3>Zip</h3>
-                        <TextInput type="text" name="zip" onChange={OnChangeHandler} ></TextInput>
+                        <h3>Zip *</h3>
+                        <TextInput type="text" id="zip" onChange={OnChangeHandler} ></TextInput>
                     </InputWrapper>
                     <InputWrapper>
                         <h2>Contact</h2>
                         <h3>Website</h3>
-                        <TextInput type="text" name="website" onChange={OnChangeHandler} ></TextInput>
+                        <TextInput type="text" id="website" onChange={OnChangeHandler} ></TextInput>
                     </InputWrapper>
                     <InputWrapper>
                         <h3>Phone *</h3>
-                        <TextInput type="text" name="phone" onChange={OnChangeHandler} ></TextInput>
+                        <TextInput type="text" id="phone" onChange={OnChangeHandler} ></TextInput>
                     </InputWrapper>
                     <InputWrapper>
-                        <h3>Email</h3>
-                        <TextInput type="email" name="email" onChange={OnChangeHandler} ></TextInput>
+                        <h3>Email *</h3>
+                        <TextInput type="email" id="email" onChange={OnChangeHandler} ></TextInput>
                     </InputWrapper>
                     <InputWrapper>
                         <h2>Details</h2>
                         <h3>Opening hours *</h3>
-                        <TextInput type="text" name="openings" onChange={OnChangeHandler} ></TextInput>
+                        <TextInput type="text" id="opening_hours" onChange={OnChangeHandler} ></TextInput>
                     </InputWrapper>
                     <InputWrapper>
                         <h3>Price level</h3>
-                        <SelectInput name="pricelevel" onChange={OnChangeHandler} >
+                        <CategorySelect id="price_level" onChange={OnChangeHandler} >
                             <option value="" disabled selected>Select a value...</option>
-                            <option value="dog">Test 1</option>
-                        </SelectInput>
+                            <option value="$">$</option>
+                            <option value="$$">$$</option>
+                            <option value="$$$">$$$</option>
+                        </CategorySelect>
                     </InputWrapper>
                     <InputWrapper>
                         <h3>Image</h3>
                         <FileButton onClick={onAddImage}>CHOOSE A FILE...</FileButton>
-                        <input type="file" id="addFiles" hidden ref={uploadFileButton} multiple accept="image/jpeg, image/png" />
+                        <input type="file" id="image" hidden ref={uploadFileButton} onChange={OnImageChangeHandler} accept="image/jpeg, image/png" />
                     </InputWrapper>
                 </Grid>
-                <BaseButton action="Create"></BaseButton>
+                <CreateButton>Create</CreateButton>
             </Wrapper>
-            
             <Footer/>
         </Main>
     )

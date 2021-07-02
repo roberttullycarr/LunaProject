@@ -6,14 +6,14 @@ from rest_framework.response import Response
 from restaurant.models import Restaurant
 from review.models import Review
 from review.serializer import ReviewSerializer
-
-"""
-    post: 
-    Create new review    
-"""
+from user.permissions import IsObjectAuthorOrReadOnly
 
 
 class ListCreateReview(ListCreateAPIView):
+    """
+    post:
+    Create new review
+    """
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
 
@@ -28,14 +28,12 @@ class ListCreateReview(ListCreateAPIView):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-"""
-    get: 
-    Get the reviews for a single restaurant
-    
-"""
-
-
 class SingleRestaurantReviews(ListAPIView):
+    """
+    get:
+    Get the reviews for a single restaurant
+
+    """
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
     lookup_url_kwarg = "restaurant_id"
@@ -45,13 +43,11 @@ class SingleRestaurantReviews(ListAPIView):
         return Review.objects.filter(restaurant=restaurant_id)
 
 
-"""
-    get: 
-    Get the reviews by a single user   
-"""
-
-
 class SingleUserReviews(ListAPIView):
+    """
+    get:
+    Get the reviews by a single user
+    """
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
     lookup_url_kwarg = "user_id"
@@ -61,31 +57,28 @@ class SingleUserReviews(ListAPIView):
         return Review.objects.filter(user=user_id)
 
 
-"""
-    get: 
-    Get review by ID and display all the information of logged in user  
-    patch: 
-    Update a chosen review by the user
-    delete: 
-    Delete a chosen review by the user   
-"""
-
-
 class ReadUpdateDeleteReview(RetrieveUpdateDestroyAPIView):
+    """
+    get:
+    Get review by ID and display all the information of logged in user
+    patch:
+    Update a chosen review by the user
+    delete:
+    Delete a chosen review by the user
+    """
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
     lookup_url_kwarg = 'review_id'
-
-
-"""
-    post: 
-    Like the review. Send an email to user per like.
-    delete: 
-    Unlike the review      
-"""
+    permission_classes = [IsObjectAuthorOrReadOnly]
 
 
 class CreateDeleteLike(GenericAPIView):
+    """
+    post:
+    Like the review. Send an email to user per like.
+    delete:
+    Unlike the review
+    """
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
     lookup_url_kwarg = 'review_id'
@@ -96,12 +89,12 @@ class CreateDeleteLike(GenericAPIView):
         if review not in user.review_likes.all():
             user.review_likes.add(review)
             send_mail(
-               'Someone just liked your comment!',
-               f'You just get liked by {user.username}, for your comment {review}!',
-               'luna.project.capricorn@gmail.com',
+                'Someone just liked your comment!',
+                f'You just get liked by {user.username}, for your comment {review}!',
+                'luna.project.capricorn@gmail.com',
                 [f'{review.user.email}'],
                 fail_silently=False,
-             )
+            )
 
         return Response(status=status.HTTP_201_CREATED)
 
@@ -113,13 +106,11 @@ class CreateDeleteLike(GenericAPIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-"""
-    get: 
-    List all liked reviews by the logged in user
-"""
-
-
 class ListLikedView(GenericAPIView):
+    """
+    get:
+    List all liked reviews by the logged in user
+    """
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
 
@@ -129,13 +120,11 @@ class ListLikedView(GenericAPIView):
         return Response(serializer.data)
 
 
-"""
-    get: 
-    List all commented reviews by the logged in user    
-"""
-
-
 class ListCommentedView(GenericAPIView):
+    """
+    get:
+    List all commented reviews by the logged in user
+    """
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
 

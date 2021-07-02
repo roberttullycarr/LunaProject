@@ -28,7 +28,6 @@ jwt_views = [
     path('verify/', jwt_views.TokenVerifyView.as_view(), name='token_refresh'),
 ]
 
-
 api_patterns = [
     path('restaurants/', include('restaurant.urls')),
     path('review/comment/', include('comment.urls')),
@@ -38,7 +37,6 @@ api_patterns = [
     path('', include('user.urls')),
     path('auth/registration/', include('reg_profile.urls')),
 ]
-
 
 urlpatterns = [
     path('backend/admin/', admin.site.urls),
