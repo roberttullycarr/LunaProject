@@ -13,7 +13,7 @@ justify-content: space-between;
 align-items: center;
 position: fixed; 
 top: 0; 
-z-index: 1;
+z-index: 10;
 border-bottom: 1px solid ${props => props.theme.DetailsGrey};
 background-color: ${props => props.theme.backgroundWhite};
 z-index: 2;

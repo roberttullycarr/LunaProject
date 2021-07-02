@@ -15,7 +15,7 @@ export const GlobalStyle = createGlobalStyle`
 export const defaultTheme = {
   // Colors
   orange: "#E47D31",
-  backgroundLightGrey: "#F2F2F2",
+  backgroundLightGrey: "#f8f8f8",
   backgroundWhite: "#FFFFFF",
   backgroundOffGrey: "rgba(0,0,0,0,0.083)",
   textDarkGrey: "#4C4C4C",
@@ -26,8 +26,13 @@ export const defaultTheme = {
   textBlack: "#000000",
   textWhite: "#FFFFFF",
   textRating: "#7E7E7E",
+  textRed: "#B00000",
   DetailsGrey: "#D8D8D8",
   DetailsLightGrey: "#EBEBEB",
+  RestaurantGrey: "#F5F5F5",
+  textareaBorder: "#E3E3E3",
+  placeholderColor: "#BBB7B7",
+  splitButtonRestColor: "#91919199",
 
   // Linear Gradients
 
