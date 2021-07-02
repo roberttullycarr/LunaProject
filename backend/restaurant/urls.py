@@ -13,4 +13,3 @@ urlpatterns = [
     path("countries/", ListCountryRestaurant.as_view(), name="get-countries"),
     path("best/", ListFourBestRestaurants.as_view(), name="four-best-restaurants"),
 ]
-

@@ -9,16 +9,15 @@ from review.serializer import ReviewSerializer
 from user.models import User
 from user.serializer import UserProfileSerializerPublic
 
-"""
-    get:
-    General search for restaurant, user, and review using 
-    type: "restaurants", "users" and "reviews"
-    and 
-    search_string by each(restaurants, users, and reviews) search field keys
-"""
-
 
 class SearchReviewRestaurantUser(GenericAPIView):
+    """
+    get:
+    General search for restaurant, user, and review using
+    type: "restaurants", "users" and "reviews"
+    and
+    search_string by each(restaurants, users, and reviews) search field keys
+    """
     permission_classes = [AllowAny]
 
     def get_queryset(self):
@@ -55,13 +54,15 @@ class SearchReviewRestaurantUser(GenericAPIView):
                     | Q(user__first_name__icontains=search_string) | Q(user__last_name__icontains=search_string))
 
             if type_search == "restaurants":
-                queryset = Restaurant.objects.filter(Q(name__icontains=search_string) | Q(category__icontains=search_string)
-                                                     | Q(country__icontains=search_string) | Q(city__icontains=search_string)
-                                                     | Q(street__icontains=search_string))
+                queryset = Restaurant.objects.filter(
+                    Q(name__icontains=search_string) | Q(category__icontains=search_string)
+                    | Q(country__icontains=search_string) | Q(city__icontains=search_string)
+                    | Q(street__icontains=search_string))
 
             if type_search == "users":
-                queryset = User.objects.filter(Q(username__icontains=search_string) | Q(first_name__icontains=search_string)
-                                               | Q(last_name__icontains=search_string))
+                queryset = User.objects.filter(
+                    Q(username__icontains=search_string) | Q(first_name__icontains=search_string)
+                    | Q(last_name__icontains=search_string))
 
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
