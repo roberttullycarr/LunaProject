@@ -8,6 +8,7 @@ import {useEffect, useState} from "react";
 import {fetchSingleRestaurant} from "../../Store/fetches";
 import {Button} from "../../Components/Generic/Buttons";
 import Axios from "../../Store/Axios";
+import {useHistory} from "react-router-dom";
 
 const Wrapper = styled.form`
 width: 100%;
@@ -95,7 +96,7 @@ const NewReview = () => {
     const onTextChange = (event) => {
         setText(event.target.value);
     };
-
+    const history = useHistory();
     const onSubmitHandler = async (event) => {
         event.preventDefault();
         // gets the url-ending from the window object
@@ -117,6 +118,8 @@ const NewReview = () => {
         } catch (err) {
           console.log(err.response);
         }
+
+        history.push(`/restaurant/${match}/`)
     };
 
     return (

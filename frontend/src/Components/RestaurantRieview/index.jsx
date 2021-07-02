@@ -1,6 +1,11 @@
 import styled from "styled-components"
 import UserInfo from "./User";
+import CommentTitle from "./Comment";
 import like from "../../Assets/SVG/like.svg"
+import Axios from "../../Store/Axios";
+import React, {useEffect} from 'react'
+import {useDispatch, useSelector} from "react-redux";
+import {fetchReviewsOfRestaurant} from "../../Store/fetches";
 
 const Container = styled.div`
     width: 650px;
@@ -20,17 +25,12 @@ const Text = styled.p`
     margin: 8.5px 0 1px 9px;
 `;
 
-const CommentTitle = styled.h3`
-    font-size: ${props => props.theme.textSizeM};
-    color: ${props => props.theme.textBlack};
-    font-weight: ${props => props.theme.textWeightThin};
-`;
-
 const ButtonWrapper = styled.div`
 position: relative;
 display: flex;
 width: 100%;
 height: 32px;
+margin: 11px 0 11px 0;
 img {
     height: 21px;
     margin: 5px 0 0 25px;
@@ -103,14 +103,48 @@ const dateTimeFormatter = (dateTime) => {
     return newDateTime
 }
 
-const Review = ({ data }) => {
-    // const dispatch = useDispatch();
-    //
-    // useEffect(() => {
-    //     dispatch(fetchSingleUser(data.user.id));
-    // }, [])
-    // const user = useSelector(state => state.singleUser);
 
+
+const Review = ({ data }) => {
+    const dispatch = useDispatch();
+    let reviews = useSelector(state => state.reviewsOfRestaurant);
+
+    const toggleLikeReview = async action => {
+        const config = {
+            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+        };
+        const body = {
+        };
+        const url = `reviews/like/${data.id}/`;
+        if (action === 'like'){
+             const response = await Axios.post(url, body, config);
+             console.log(response)
+        }
+        else{
+            const response = await Axios.delete(url, config);
+            console.log(response)
+        }
+    };
+
+
+    const likeHandler = async (event) => {
+        // event.preventDefault();
+        toggleLikeReview('like');
+        const index = reviews.indexOf(data);
+        data['likes'].push(data.user.id);
+        data['amount_of_likes_in_review'] += 1;
+        reviews[index] = data;
+        dispatch({type: 'REVIEWSOFRESTAURANT', payload: reviews});
+        console.log(reviews);
+    };
+    const unLikeHandler = async (event) => {
+        // event.preventDefault();
+        toggleLikeReview();
+        // const newData = [...reviews.delete(data)];
+        // console.log(reviews.data);
+    };
+
+    // console.log(reviews[data])
     return (
         <Container>
             <Top>
@@ -121,11 +155,11 @@ const Review = ({ data }) => {
             <Text>{data.text}</Text>
             <ButtonWrapper>
                 <img src={like}/>
-                <LikeButton><span>Like {data['amount_of_likes_in_review']}</span></LikeButton>
+                <LikeButton onClick={(data.likes.includes(data.user.id)) ? unLikeHandler: likeHandler}><span>Like {data['amount_of_likes_in_review']}</span></LikeButton>
                 <CommentButton>Comment {data['amount_of_comments_in_review']}</CommentButton>
                 <AllComments>View all comments</AllComments>
             </ButtonWrapper>
-            <CommentTitle></CommentTitle>
+            <CommentTitle data={data.user}/>
         </Container>
     )
 }

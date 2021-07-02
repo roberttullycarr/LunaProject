@@ -24,4 +24,4 @@ class ReviewSerializer(serializers.ModelSerializer):
         model = Review
         fields = "__all__"
         fields = ['user', 'text', 'rating', 'restaurant', 'restaurant_name', 'created', 'modified',
-                  'amount_of_comments_in_review', 'amount_of_likes_in_review', 'likes']
+                  'amount_of_comments_in_review', 'amount_of_likes_in_review', 'likes', 'id']

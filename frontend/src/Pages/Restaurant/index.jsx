@@ -3,7 +3,7 @@ import MenuBar from "../../Components/Menu Bar";
 import Footer from "../../Components/Footer";
 import RestaurantHeader from "../../Components/RestaurantHeader";
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {fetchReviewsOfRestaurant, fetchSingleRestaurant} from "../../Store/fetches";
 import styled from "styled-components";
 import clock from "../../Assets/SVG/clock.svg"
@@ -11,6 +11,8 @@ import money from "../../Assets/SVG/money.svg"
 import {Button} from "../../Components/Generic/Buttons";
 import {BaseInput} from "../../Components/Generic/Fields";
 import Review from "../../Components/RestaurantRieview";
+import Axios from "../../Store/Axios";
+import {useHistory} from "react-router-dom";
 
 const Wrapper = styled.div`
 width: 100%;
@@ -86,7 +88,7 @@ font-weight: ${props => props.theme.textWeightRegular};
 margin: 31px 17px 0 16px
 `
 
-const FilterDiv = styled.div`
+const FilterForm = styled.form`
 display: flex;
 margin: 20px 0 27px 0;
 `
@@ -113,9 +115,17 @@ const Reviews = styled.div`
 `
 
 const Restaurant = () => {
+
     const dispatch = useDispatch();
     const restaurant = useSelector(state => state.singleRestaurant);
-    const reviews = useSelector(state => state.reviewsOfRestaurant);
+    let reviews = useSelector(state => state.reviewsOfRestaurant);
+    const [filteredReviews, setFilteredReviews] = useState([...reviews]);
+    const history = useHistory()
+
+    let filterText = ''
+    const setFilterText = (e) => {
+        filterText = e
+    }
 
     useEffect(() => {
         dispatch(fetchSingleRestaurant);
@@ -124,6 +134,27 @@ const Restaurant = () => {
     useEffect(() => {
         dispatch(fetchReviewsOfRestaurant);
     }, [])
+
+    const onSubmitHandler = async (event) => {
+        event.preventDefault();
+        let filteredReviews = []
+        for (let i = 0; i < reviews.length; i++) {
+            console.log(reviews[i]['text'].includes(filterText))
+            if (reviews[i]['text'].includes(filterText)) {
+                filteredReviews.push(reviews[i])
+            }
+        }
+        setFilteredReviews(filteredReviews)
+    };
+
+    const newReview = (event) => {
+        event.preventDefault();
+        // gets the url-ending from the window object
+        const path = window.location.pathname
+        // matches the url-ending for a number sequence
+        const match = path.match(/(\d+)/)[0]
+        history.push(`/create/newreview/${match}/`)
+    }
 
     return (
         <Main>
@@ -134,12 +165,16 @@ const Restaurant = () => {
                 </TopSection>
                 <BottomSection>
                     <Left>
-                        <FilterDiv>
-                            <FilterInput placeholder='Filter list...'/>
+                        <FilterForm  onSubmit={onSubmitHandler}>
+                            <FilterInput placeholder='Filter list...' onChange={(e) => setFilterText(e.target.value)}/>
                             <FilterButton>FILTER</FilterButton>
-                        </FilterDiv>
+                        </FilterForm>
                         <Reviews>
-                            {reviews.length > 0 ? reviews.map((review) => {
+                            {filteredReviews.length > 0 ? filteredReviews.map((review) => {
+                                return (
+                                    <Review data={review}/>
+                                );
+                            }) : reviews.length > 0 ? reviews.map((review) => {
                                 return (
                                     <Review data={review}/>
                                 );
@@ -157,7 +192,7 @@ const Restaurant = () => {
                             <Text>{restaurant['price_level']}</Text>
                         </InfoField>
                         <ButtonField>
-                            <Buttons>WRITE A REVIEW</Buttons>
+                            <Buttons onClick={newReview}>WRITE A REVIEW</Buttons>
                             <Buttons>EDIT DATA</Buttons>
                         </ButtonField>
                     </Right>
