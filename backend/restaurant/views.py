@@ -1,8 +1,9 @@
 from django.core.mail import send_mail
 from rest_framework.generics import ListAPIView, ListCreateAPIView, RetrieveUpdateDestroyAPIView
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import AllowAny
 from restaurant.models import Restaurant
-from restaurant.serializer import RestaurantSerializer, CountrySerializer, RatingsSerializer
+from restaurant.serializer import RestaurantSerializer, CountrySerializer
+from user.permissions import IsObjectAuthorOrReadOnly
 
 
 class ListRestaurant(ListAPIView):
@@ -77,7 +78,7 @@ class RetrieveUpdateDestroyRestaurant(RetrieveUpdateDestroyAPIView):
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
     lookup_url_kwarg = 'id'
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsObjectAuthorOrReadOnly]
 
     def perform_update(self, serializer):
         serializer.save()
