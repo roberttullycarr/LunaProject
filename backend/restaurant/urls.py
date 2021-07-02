@@ -1,6 +1,6 @@
 from django.urls import path
 from restaurant.views import ListCreateRestaurant, RetrieveUpdateDestroyRestaurant, ListRestaurantsUser, \
-    ListRestaurantsCategory, ListRestaurant, ListCountryRestaurant
+    ListRestaurantsCategory, ListRestaurant, ListCountryRestaurant, ListFourBestRestaurants
 
 
 urlpatterns = [
@@ -11,5 +11,5 @@ urlpatterns = [
     path('user/<int:user_id>/', ListRestaurantsUser.as_view(), name='list-restaurant-user'),
     path("<int:id>/", RetrieveUpdateDestroyRestaurant.as_view(), name="get-destroy-update-restaurant"),
     path("countries/", ListCountryRestaurant.as_view(), name="get-countries"),
+    path("best/", ListFourBestRestaurants.as_view(), name="four-best-restaurants"),
 ]
-

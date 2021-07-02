@@ -4,7 +4,6 @@ from rest_framework.response import Response
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, ListAPIView, UpdateAPIView
 from rest_framework.permissions import IsAuthenticated
 from review.models import Review
-from comment.permissions import ObjNotLoggedInUser
 from comment.models import Comment
 from comment.serializer import CommentSerializer
 
@@ -85,10 +84,10 @@ class CreateLike(UpdateAPIView):
         return Response(self.get_serializer(comment_to_save).data)
 
 
-class ListTwoComments(ListAPIView):
+class ListAllComments(ListAPIView):
     """
     get:
-    List two recent comments in a review.
+    List all comments in a review.
     """
 
     serializer_class = CommentSerializer
@@ -96,4 +95,4 @@ class ListTwoComments(ListAPIView):
 
     def get_queryset(self):
         review_id = self.kwargs.get("review_id")
-        return Comment.objects.filter(review__id=review_id).order_by("-created")[:2]
+        return Comment.objects.filter(review__id=review_id).order_by("-created")

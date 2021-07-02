@@ -1,11 +1,8 @@
 import random
-
 from django.db.models import Q
 from django.core.mail import send_mail
-from rest_framework import filters
 from rest_framework.generics import GenericAPIView, ListAPIView
 from rest_framework.response import Response
-
 from .models import User
 from .serializer import UserProfileSerializerPrivate, UserProfileSerializerPublic
 from reg_profile.models import RegProfile
