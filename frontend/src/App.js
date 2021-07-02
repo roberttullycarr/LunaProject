@@ -8,10 +8,9 @@ import Restaurants from "./Pages/Search/Restaurants";
 import Reviews from "./Pages/Search/Reviews";
 import Users from "./Pages/Search/Users";
 import Restaurant from "./Pages/Restaurant";
-import UserProfile from "./Pages/UserProfile";
+import UserProfile from "./Pages/UserProfile/index.jsx";
 import NewReview from "./Pages/NewReview";
 import NewRestaurant from "./Pages/NewRestaurant";
-
 
 
 function App() {
@@ -27,7 +26,7 @@ function App() {
                 <Route exact path={"/search/reviews"} component={Reviews} />
                 <Route exact path={"/search/users"} component={Users} />
                 <Route exact path={"/restaurant/:index"} component={Restaurant} />
-                <Route exact path={"/user/:index"} component={UserProfile} />
+                <Route exact path={"/user/me"} component={UserProfile} />
                 <Route exact path={"/create/newreview/:index"} component={NewReview} />
                 <Route exact path={"/create/newrestaurant"} component={NewRestaurant} />
                 <Route exact path="/signin" component={SignIn} />

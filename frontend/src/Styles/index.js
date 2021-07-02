@@ -17,6 +17,7 @@ export const defaultTheme = {
   orange: "#E47D31",
   backgroundLightGrey: "#F2F2F2",
   backgroundWhite: "#FFFFFF",
+  backgroundOffGrey: "rgba(0,0,0,0,0.083)",
   textDarkGrey: "#4C4C4C",
   textTabDarkGrey: "#4A4A4A",
   textGrey: "#979797",

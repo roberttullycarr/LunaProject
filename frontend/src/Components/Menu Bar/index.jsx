@@ -13,6 +13,7 @@ top: 0;
 z-index: 1;
 border-bottom: 1px solid ${props => props.theme.DetailsGrey};
 background-color: ${props => props.theme.backgroundWhite};
+z-index: 2;
 `
 
 const Logo = styled.img`
@@ -80,13 +81,17 @@ const MenuBar = () => {
         }
     }
 
+    const GoToProfile = () => {
+        history.push('/user/me');
+    }
+
     return (
      <MBMain>
         <Logo src={logo}/>
          <MBRight>
              <NavButton>Home</NavButton>
              <NavButton>Search</NavButton>
-             <NavButton>Profile</NavButton>
+             <NavButton onClick={GoToProfile}>Profile</NavButton>
              <SignUpButton>SIGN UP</SignUpButton>
              <LoginButton onClick={LogHandler}>{localStorage.token ? "LOG OUT" : "LOG IN"}</LoginButton>
          </MBRight>
