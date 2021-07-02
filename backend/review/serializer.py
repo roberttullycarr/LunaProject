@@ -8,6 +8,7 @@ class ReviewSerializer(serializers.ModelSerializer):
     amount_of_comments_in_review = serializers.SerializerMethodField()
     amount_of_likes_in_review = serializers.SerializerMethodField()
     restaurant_name = serializers.SerializerMethodField()
+    two_recent_comments = serializers.SerializerMethodField()
 
     def get_restaurant_name(self, instance):
         return instance.restaurant.name
@@ -20,7 +21,11 @@ class ReviewSerializer(serializers.ModelSerializer):
     def get_amount_of_likes_in_review(instance):
         return instance.likes.all().count()
 
+    @staticmethod
+    def get_two_recent_comments(instance):
+        return instance.comment_review.values().order_by('-created')[:2]
+
     class Meta:
         model = Review
         fields = ['user', 'text', 'rating', 'restaurant', 'restaurant_name', 'created', 'modified',
-                  'amount_of_comments_in_review', 'amount_of_likes_in_review', 'likes']
+                  'amount_of_comments_in_review', 'amount_of_likes_in_review', 'likes', 'two_recent_comments']
