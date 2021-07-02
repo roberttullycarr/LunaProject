@@ -51,8 +51,11 @@ export const Text = styled.p`
     margin-bottom: 22px;
     white-space: wrap;
     overflow: hidden;
-    text-overflow: ellipsis;
     height: 80px;
+    position: relative;
+    overflow: hidden;
+    padding-right: 1rem;
+    text-overflow: ellipsis;
 `;
 
 const CommentTitle = styled.h3`
@@ -108,8 +111,10 @@ const Review = ({ data }) => {
                     <CommentButton>{`Comments ${data.amount_of_comments_in_review}`}</CommentButton>
                 </SplitButtonMain>
                 <CommentTitle>Latest Comments</CommentTitle>
-                <ReviewTileComment author={'Colin Wirz'} text={'Actually you have no taste!'}/>
-                <ReviewTileComment author={'Laurent H.'} text={'sorry bro!'}/>
+                {data.two_recent_comments[0] ? <ReviewTileComment author={`${data.two_recent_comments[0].first_name} 
+                ${data.two_recent_comments[0].last_name}`} text={data.two_recent_comments[0].text}/> : null}
+                {data.two_recent_comments[1] ? <ReviewTileComment author={`${data.two_recent_comments[1].first_name} 
+                ${data.two_recent_comments[1].last_name}`} text={data.two_recent_comments[1].text}/> : null}
             </ReviewBody>
         </Container>
     )

@@ -64,7 +64,7 @@ const RestaurantTile = ({ data }) => {
             <RestBody>
                 <RestTitle onClick={() => history.push(`/restaurant/${data.id}`)}>{data.name}</RestTitle>
                 <RestAddress>{data.street}</RestAddress>
-                <Stars/>
+                <Stars amount_reviews={data.amount_of_reviews_in_restaurant} avg_rating={data.avg_rating}/>
             </RestBody>
             <RestImg src={data.image}/>
         </RestaurantTileMain>
