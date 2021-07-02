@@ -26,7 +26,8 @@ function App() {
                 <Route exact path={"/search/reviews"} component={Reviews} />
                 <Route exact path={"/search/users"} component={Users} />
                 <Route exact path={"/restaurant/:index"} component={Restaurant} />
-                <Route exact path={"/user/me"} component={UserProfile} />
+                <Route exact path={"/user/:index"} component={UserProfile} />
+                <Route exact path={"/me"} component={UserProfile} />
                 <Route exact path={"/create/newreview/:index"} component={NewReview} />
                 <Route exact path={"/create/newrestaurant"} component={NewRestaurant} />
                 <Route exact path="/signin" component={SignIn} />

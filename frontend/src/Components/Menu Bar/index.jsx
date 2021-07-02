@@ -1,6 +1,9 @@
 import styled from 'styled-components'
 import logo from "../../Assets/SVG/logo.svg"
-import { useHistory } from "react-router-dom";
+import {useHistory, useLocation} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect} from "react";
+import {fetchUserProfileData} from "../../Store/fetches";
 
 const MBMain = styled.div`
 width: 100%;
@@ -65,10 +68,19 @@ flex-shrink: 1;
     border-bottom: 3px solid ${(props) => props.theme.orange};
     cursor: pointer;
 }
+
+border-bottom: ${props => props.borderBottom || "none"};
 `
 
 const MenuBar = () => {
     const history = useHistory();
+    const location = useLocation();
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(fetchUserProfileData)
+    }, [])
+
 
     const LogHandler = () => {
         if (localStorage.token) {
@@ -89,9 +101,12 @@ const MenuBar = () => {
      <MBMain>
         <Logo src={logo}/>
          <MBRight>
-             <NavButton>Home</NavButton>
-             <NavButton>Search</NavButton>
-             <NavButton onClick={GoToProfile}>Profile</NavButton>
+             <NavButton onClick={() => location.pathname !== "/" ? history.push("/") : null}
+                          borderBottom={location.pathname === "/" ? "3px solid #E47D31" : "3px solid transparent"}>Home</NavButton>
+             <NavButton onClick={() => !location.pathname.includes("/search") ? history.push("/search/restaurants") : null}
+                          borderBottom={location.pathname.includes("/search") ? "3px solid #E47D31" : "3px solid transparent"}>Search</NavButton>
+             <NavButton onClick={() => !location.pathname.includes("/me") ? history.push(`/me`) : null}
+                          borderBottom={location.pathname.includes("/me") ? "3px solid #E47D31" : "3px solid transparent"}>Profile</NavButton>
              <SignUpButton>SIGN UP</SignUpButton>
              <LoginButton onClick={LogHandler}>{localStorage.token ? "LOG OUT" : "LOG IN"}</LoginButton>
          </MBRight>

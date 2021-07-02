@@ -19,6 +19,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework_simplejwt import views as jwt_views
 
+from settings.view import SearchReviewRestaurantUser
 
 jwt_views = [
     # Your URLs...
@@ -27,16 +28,15 @@ jwt_views = [
     path('verify/', jwt_views.TokenVerifyView.as_view(), name='token_refresh'),
 ]
 
-
 api_patterns = [
     path('restaurants/', include('restaurant.urls')),
     path('review/comment/', include('comment.urls')),
     path('auth/token/', include(jwt_views)),
     path('reviews/', include('review.urls')),
+    path('search/', SearchReviewRestaurantUser.as_view()),
     path('', include('user.urls')),
     path('auth/registration/', include('reg_profile.urls')),
 ]
-
 
 urlpatterns = [
     path('backend/admin/', admin.site.urls),

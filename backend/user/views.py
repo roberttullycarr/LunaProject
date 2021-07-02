@@ -1,10 +1,8 @@
 import random
-
 from django.db.models import Q
 from django.core.mail import send_mail
-from rest_framework.generics import GenericAPIView
+from rest_framework.generics import GenericAPIView, ListAPIView
 from rest_framework.response import Response
-
 from .models import User
 from .serializer import UserProfileSerializerPrivate, UserProfileSerializerPublic
 from reg_profile.models import RegProfile
@@ -31,7 +29,7 @@ class CreateUser(GenericAPIView):
             return Response(data={"error": "Wrong code, try again."}, status=404)
 
 
-class ListAllUsers(GenericAPIView):
+class ListAllUsers(ListAPIView):
     """
     get:
     List all user.
@@ -39,18 +37,13 @@ class ListAllUsers(GenericAPIView):
     queryset = User.objects.all()
     serializer_class = UserProfileSerializerPublic
 
-    def get(self, request, *args, **kwargs):
-        queryset = self.get_queryset()
-        serializer = self.get_serializer(queryset, many=True)
-        return Response(serializer.data)
-
 
 class ListUpdateCurrentUser(GenericAPIView):
     """
     get:
-    List current/loged in user.
+    List current/logged in user.
     post:
-    Update current/loged in user..
+    Update current/logged in user. Send en email for each profile update to the user.
     """
     queryset = User.objects.all()
     serializer_class = UserProfileSerializerPrivate
@@ -65,20 +58,13 @@ class ListUpdateCurrentUser(GenericAPIView):
         serializer = self.get_serializer(queryset, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response(serializer.data)
-
-
-class SearchUser(GenericAPIView):
-    """
-    get:
-    Search user by keyword and username.
-    """
-    serializer_class = UserProfileSerializerPublic
-
-    def get(self, request, *args, **kwargs):
-        search_key = self.request.query_params.get('keyword')
-        queryset = User.objects.filter(username__contains=search_key)
-        serializer = self.get_serializer(queryset, many=True)
+        send_mail(
+            'Send an email when the user updates the profile',
+            f'You have successfully updated your profile!',
+            'luna.project.capricorn@gmail.com',
+            [f'{self.request.user.email}'],
+            fail_silently=False,
+        )
         return Response(serializer.data)
 
 
@@ -95,6 +81,7 @@ class SingleUser(GenericAPIView):
         queryset = self.get_object()
         serializer = self.get_serializer(queryset)
         return Response(serializer.data)
+
 
 # snippet to generate random code
 def code_generator(length=5):

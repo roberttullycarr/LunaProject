@@ -18,7 +18,6 @@ class RegProfile(models.Model):
 
     email = models.CharField(max_length=200, unique=True)
 
-
     def __str__(self):
         return f'Email: {self.email} - code: {self.code}'
 

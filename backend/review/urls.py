@@ -10,4 +10,5 @@ urlpatterns = [
     path('like/<int:review_id>/', CreateDeleteLike.as_view()),
     path('likes/', ListLikedView.as_view()),
     path('comments/', ListCommentedView.as_view()),
+    path('comments/', ListCommentedView.as_view()),
 ]

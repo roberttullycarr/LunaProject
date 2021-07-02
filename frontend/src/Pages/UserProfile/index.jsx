@@ -101,10 +101,10 @@ export const UserProfile = () => {
         // setUserTemplate({...userTemplate, [input]: value });
         dispatch(fetchUserComments(me.id));
         setUserTemplate({...userTemplate, me });
-        fillUserTemplate(me);
+        // fillUserTemplate(me);
     }, [])
 
-    const fillUserTemplate = async (me) => {
+    /* const fillUserTemplate = async (me) => {
         setUserTemplate({...userTemplate, ['username']: me.username });
         setUserTemplate({...userTemplate, ['first_name']: me.first_name });
         setUserTemplate({...userTemplate, ['last_name']: me.last_name });
@@ -114,7 +114,7 @@ export const UserProfile = () => {
         setUserTemplate({...userTemplate, ['things_i_love']: me.things_i_love });
         setUserTemplate({...userTemplate, ['description']: me.description });
         console.log(userTemplate);
-    }
+    } */
 
     const patchUserMe = async () => {
         const config = {
@@ -189,7 +189,7 @@ export const UserProfile = () => {
                         <ColumnTitle>EDIT USERPROFILE</ColumnTitle>
                         <InputWrapper>
                             <h3>Username</h3>
-                            <TextInput type="text" id="username" onChange={OnChangeHandler} value={userTemplate.username} ></TextInput>
+                            <TextInput type="text" id="username" onChange={OnChangeHandler} placeholder={me.username} ></TextInput>
                         </InputWrapper>
                         <InputWrapper>
                             <h3>First name</h3>
