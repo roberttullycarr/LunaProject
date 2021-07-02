@@ -3,9 +3,9 @@
   display: -ms-flexbox; /* Not needed if autoprefixing */
   display: flex;
   justify-content: center;
-  min-height: 100vh;
+  min-height: calc(100vh - 88px - 71px - 40px);
   margin: 40px 0px; /* gutter size offset */
-  width: 66%;
+  width: 90%;
 }
 .my-masonry-grid_column {
   /*padding-left: 30px; !* gutter size *!*/
