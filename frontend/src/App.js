@@ -8,10 +8,9 @@ import Restaurants from "./Pages/Search/Restaurants";
 import Reviews from "./Pages/Search/Reviews";
 import Users from "./Pages/Search/Users";
 import Restaurant from "./Pages/Restaurant";
-import UserProfile from "./Pages/UserProfile";
+import UserProfile from "./Pages/UserProfile/index.jsx";
 import NewReview from "./Pages/NewReview";
 import NewRestaurant from "./Pages/NewRestaurant";
-
 
 
 function App() {
