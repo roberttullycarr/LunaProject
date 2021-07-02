@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Button = styled.button`
+export const Button = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,11 +12,15 @@ const Button = styled.button`
     font-size: ${(props) => props.theme.textSizeM};
     background-color: ${(props) => props.theme.orange};
     margin-top: 4%;
+
+    :hover {
+        cursor: pointer;
+    }
 `
 
-export const BaseButton = ({action}) => {
+export const BaseButton = ({action, onClick}) => {
     return (
-        <Button name={action}>
+        <Button name={action} onClick= {onClick}>
             {action}
         </Button>
     )
