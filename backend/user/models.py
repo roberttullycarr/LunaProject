@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from reg_profile.models import RegProfile
+# Hello
 
 
 class User(AbstractUser):
