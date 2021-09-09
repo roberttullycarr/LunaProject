@@ -12,7 +12,7 @@ class User(AbstractUser):
     email = models.EmailField(unique=True)
     username = models.CharField(unique=True, verbose_name='username', max_length=200)
     location = models.CharField(verbose_name='location', max_length=40, blank=True)
-    phone = models.IntegerField(max_length=17, blank=True)
+    phone = models.IntegerField(blank=True, null=True)
     things_i_love = models.CharField(verbose_name='things_i_love', max_length=200, blank=True)
     description = models.CharField(verbose_name='description', max_length=400, blank=True)
     profile_picture = models.ImageField(upload_to='user_media', blank=True, null=True)
